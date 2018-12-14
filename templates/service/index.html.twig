@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Services{% endblock %}
+
+{% block main %}
+
+
+
+    <div class="main">
+        <div class="main-inner">
+            <div class="container">
+                <div class="content">
+                    <div class="block background-white background-transparent-image fullwidth">
+                        <div class="page-header">
+                            <h1>See all those service such waw</h1>
+                            <p>List of most recent interesting places and events in our directory submitted <br>by our users. Check whats going on in the city now.</p>
+                        </div><!-- /.page-header -->
+                        <div class="cards-simple-wrapper">
+                            <div class="row">
+
+
+
+
+
+
+
+
+                       {% for service in services %}
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="card-simple" data-background-image="{{ service.vitrine }}" style="background-image: url(&quot;assets/img/tmp/product-9.jpg&quot;);">
+                                        <div class="card-simple-background">
+                                            <div class="card-simple-content">
+                                                <h2><a href="/service/{{ service.id}}">{{service.name}}</a></h2>
+                                                <div class="card-simple-rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div><!-- /.card-rating -->
+
+                                                <div class="card-simple-actions">
+                                                    <a href="#" class="fa fa-bookmark-o"></a>
+                                                    <a href="listing-detail.html" class="fa fa-search"></a>
+                                                    <a href="#" class="fa fa-heart-o"></a>
+                                                    <p> {{ service.description }}</p>
+                                                </div><!-- /.card-simple-actions -->
+                                            </div><!-- /.card-simple-content -->
+
+                                            <div class="card-simple-label">Event</div>
+
+                                            <div class="card-simple-price">$13 / ticket</div>
+
+                                        </div><!-- /.card-simple-background -->
+                                    </div><!-- /.card-simple -->
+                                </div><!-- /.col-* -->
+
+                                {% endfor %}
+
+                            </div><!-- /.row -->
+                        </div><!-- /.cards-simple-wrapper -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

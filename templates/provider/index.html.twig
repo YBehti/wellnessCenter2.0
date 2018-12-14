@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Providers{% endblock %}
+
+
+
+
+{% block main %}
+
+
+
+    <div class="main">
+        <div class="main-inner">
+            <div class="container">
+                <div class="content">
+                    <div class="block background-white background-transparent-image fullwidth">
+                        <div class="page-header">
+                            <h1>Such beautiful people</h1>
+                            <p>List of most recent interesting places and events in our directory submitted <br>by our users. Check whats going on in the city now.</p>
+                        </div><!-- /.page-header -->
+                        <div class="cards-simple-wrapper">
+                            <div class="row">
+
+
+
+
+
+
+
+                                {% for provider in providers %}
+                                    <div class="col-sm-6 col-md-3">
+                                        {% for image in provider.image %}
+
+                                        {% if image.type is same as("profile") %}
+                                            <div class="card-simple" data-background-image="{{ image.image }}" style="background-image: url(&quot;assets/img/tmp/product-9.jpg&quot;);">
+                                        {% endif %}
+                                        {% endfor %}
+                                            <div class="card-simple-background">
+                                                <div class="card-simple-content">
+                                                    <h2><a href="/provider/{{ provider.id}}">{{provider.name}}</a></h2>
+                                                    <div class="card-simple-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </div><!-- /.card-rating -->
+
+                                                    <div class="card-simple-actions">
+                                                        <p>{{ provider.email }} {{ provider.phoneNumber }} {{ provider.website }}</p>
+
+                                                        {% for image in provider.image %}
+                                                        {% if image.type is same as("logo") %}
+                                                            <img src="{{ image.image }}" style="width:30%;">
+                                                        {% endif %}
+                                                        {% endfor %}
+
+
+
+                                                    </div><!-- /.card-simple-actions -->
+                                                </div><!-- /.card-simple-content -->
+
+
+
+
+
+                                            </div><!-- /.card-simple-background -->
+                                        </div><!-- /.card-simple -->
+                                    </div><!-- /.col-* -->
+
+                                {% endfor %}
+
+                            </div><!-- /.row -->
+                        </div><!-- /.cards-simple-wrapper -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

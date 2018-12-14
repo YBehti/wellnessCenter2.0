@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Providers{% endblock %}
+
+{% block main %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Look at this looker</h1>
+
+
+        <ul>
+
+            {% for image in provider.image %}
+                {% if image.type is same as("logo") %}
+                    <img src="{{ image.image }}">
+                {% endif %}
+                {% if image.type is same as("profile") %}
+                    <img src="{{ image.image }}">
+                {% endif %}
+            {% endfor %}
+                <li><strong>{{ provider.name }}</strong></li>
+                <li>{{ provider.email }}</li>
+                <li>{{ provider.phoneNumber }}</li>
+                <li>{{ provider.website }}</li>
+                <li>{{ provider.adressStreet }}, {{ provider.adressNum }}</li>
+                <li>{{ provider.locality }} {{ provider.postCode }}</li>
+                <li>{{ provider.website }}</li>
+                <li>{{ provider.VATNumber }}</li>
+        </ul>
+                <br/>
+        <h1>What is it that they do</h1>
+
+        <ul>
+                {% for service in provider.services %}
+
+                    <li><a href="/service/{{ service.id }}">{{ service.name }}</a></li>
+
+                {% endfor %}
+        </ul>
+
+
+
+
+
+    </div>
+{% endblock %}
