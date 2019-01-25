@@ -17,11 +17,16 @@ class SearchController extends AbstractController
     public function search(Request $request)
     {
        $getCp = $request->get('locality');
+//       var_dump($getCp);
        $getService = $request->get('service');
+//       var_dump($getService);
        $getProvider = $request->get('provider');
+//       var_dump($getProvider);
 
        $repository = $this->getDoctrine()->getRepository(Provider::class);
        $providers = $repository->findByCp($getCp,$getService,$getProvider);
+
+
 
        return $this->render('/search/results.html.twig',[
            'providers'=>$providers

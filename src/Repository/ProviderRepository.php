@@ -20,23 +20,33 @@ class ProviderRepository extends ServiceEntityRepository
     }
 
 
-    public function findByCp($searchService,$searchProvider,$searchPostCode){
+    public function findByCp($searchPostCode,$searchService,$searchProvider){
 
+        dump($searchPostCode);
+        $qb = $this->createQueryBuilder('p');
 
-        $qb = $this->createQueryBuilder('p')
+           if($searchProvider !== ""){
 
-            ->andWhere('p.name = :providers')
-            ->setParameter('providers',$searchProvider)
+                $qb->andWhere('p.name = :providers')
+                   ->setParameter('providers',$searchProvider);
+           }
 
-            ->leftJoin('p.post_code', 'post_code')
-            ->addSelect('post_code')
-            ->andWhere('post_code.post_code = :post_code')
-            ->setParameter('post_code',$searchPostCode)
+            if($searchPostCode !== ""){
 
-            ->leftJoin('p.services','services')
-            ->addSelect('services')
-            ->andWhere('services.name = :services')
-            ->setParameter('services',$searchService);
+                $qb->leftJoin('p.post_code', 'post_code')
+                    ->addSelect('post_code')
+                    ->andWhere('post_code.post_code LIKE :post_code')
+                    ->setParameter('post_code',$searchPostCode);
+            }
+
+            if($searchService){
+
+                $qb->leftJoin('p.services','services')
+                    ->addSelect('services')
+                    ->andWhere('services.name LIKE :services')
+                    ->setParameter('services',$searchService);
+            }
+
 
 
 

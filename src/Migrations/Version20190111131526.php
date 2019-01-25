@@ -8,16 +8,14 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20181129042837 extends AbstractMigration
+final class Version20190111131526 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE image ADD provider_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE image ADD CONSTRAINT FK_C53D045FA53A8AA FOREIGN KEY (provider_id) REFERENCES provider (id)');
-        $this->addSql('CREATE INDEX IDX_C53D045FA53A8AA ON image (provider_id)');
+        $this->addSql('ALTER TABLE temp_user ADD token VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -25,8 +23,6 @@ final class Version20181129042837 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE image DROP FOREIGN KEY FK_C53D045FA53A8AA');
-        $this->addSql('DROP INDEX IDX_C53D045FA53A8AA ON image');
-        $this->addSql('ALTER TABLE image DROP provider_id');
+        $this->addSql('ALTER TABLE temp_user DROP token');
     }
 }

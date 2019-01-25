@@ -22,7 +22,7 @@ class Provider extends User
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $emailPro;
+    private $email_pro;
 
     /**
      * @ORM\Column(type="string", length=255)

@@ -15,7 +15,7 @@
             <link href="{{asset('assets/css/superlist.css')}}" rel="stylesheet" type="text/css" >
         {% endblock %}
     </head>
-    <body>
+    <body style="display: table">
         {% block body %}
             {% block header %}
             <header class="header">
@@ -43,7 +43,7 @@
 
                                     <ul class="header-nav-secondary nav nav-pills">
                                         <li><a href="login.html">Login</a></li>
-                                        <li><a href="register.html">Register</a></li>
+                                        <li><a href="{{ path('registration') }}">Register</a></li>
                                     </ul>
                                 </div><!-- /.header-top -->
 
