@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Provider;
+use App\Entity\Surfer;
 use App\Entity\TempUser;
 use App\Form\ProviderFormType;
+use App\Form\SurferFormType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -106,9 +108,30 @@ class RegistrationController extends AbstractController
         switch ($type){
 
             case 'surfer':
-                return $this->render('profile/user_registration.html.twig',[
+                $surfer = new Surfer();
+                $surfer
+                    ->setBanned(false)
+                    ->setConnectionFailed(0)
+                    ->setRegistrationDate(new \DateTime());
 
-                    'user'=>$user
+                $form = $this->createForm(SurferFormType::class,$surfer);
+                $form->handleRequest($request);
+                if($form->isSubmitted() && $form->isValid()){
+                    $manager = $this->getDoctrine()->getManager();
+                    $password = $form->get('password')->getData();
+                    $surfer->setPassword($this->passwordEncoder->encodePassword(
+                        $surfer,
+                        $password
+
+                    ));
+                    $manager->persist($surfer);
+                    $manager->flush();
+
+                    return $this->redirectToRoute('service');
+                }
+                return $this->render('profile/surfer_registration.html.twig',[
+
+                    'form'=>$form->createView()
 
                 ]);
                 break;
@@ -119,7 +142,7 @@ class RegistrationController extends AbstractController
                     ->setConnectionFailed(0)
                     ->setRegistrationDate(new \DateTime());
 
-                $form = $this->createForm(ProviderFormType::class);
+                $form = $this->createForm(ProviderFormType::class,$provider);
                 $form->handleRequest($request);
 
                 if($form->isSubmitted() && $form->isValid()){

@@ -6865,7 +6865,7 @@ button i {
   pointer-events: none; }
 
 input[type=checkbox], input[type=radio] {
-  display: none; }
+  transform: scale(1.5);}
 
 input[type=checkbox] + label, input[type=radio] + label {
   display: block;

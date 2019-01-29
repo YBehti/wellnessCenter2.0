@@ -41,10 +41,18 @@
                                         <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                                     </ul><!-- /.header-nav-social -->
 
-                                    <ul class="header-nav-secondary nav nav-pills">
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="{{ path('registration') }}">Register</a></li>
-                                    </ul>
+                                    {% if is_granted('ROLE_USER')  %}
+                                        <ul class="header-nav-secondary nav nav-pills">
+                                            <li><a href="#"><i class="fa fa-user"></i> Edit Profile</a></li>
+                                            <li><a href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+                                        </ul>
+                                    {% else %}
+                                        <ul class="header-nav-secondary nav nav-pills">
+                                            <li><a href="{{ path('login') }}">Login</a></li>
+                                            <li><a href="{{ path('registration') }}">Register</a></li>
+                                        </ul>
+                                    {% endif %}
+
                                 </div><!-- /.header-top -->
 
                                 <div class="header-bottom">
@@ -54,7 +62,7 @@
                                         </a><!-- /.header-action-inner -->
                                     </div><!-- /.header-action -->
 
-                                    <ul class="header-nav-primary nav nav-pills collapse navbar-collapse">
+                                   {# <ul class="header-nav-primary nav nav-pills collapse navbar-collapse">
                                         <li >
                                             <a href="#">Home <i class="fa fa-chevron-down"></i></a>
 
@@ -154,7 +162,7 @@
                                                 <li><a href="contact-3.html">Contact v3</a></li>
                                             </ul>
                                         </li>
-                                    </ul>
+                                    </ul>#}
 
                                     <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".header-nav-primary">
                                         <span class="sr-only">Toggle navigation</span>

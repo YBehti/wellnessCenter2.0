@@ -36,6 +36,11 @@ class Image
      */
     private $provider;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Surfer", inversedBy="images")
+     */
+    private $surfer;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +94,18 @@ class Image
     public function setProvider(?Provider $provider): self
     {
         $this->provider = $provider;
+
+        return $this;
+    }
+
+    public function getSurfer(): ?Surfer
+    {
+        return $this->surfer;
+    }
+
+    public function setSurfer(?Surfer $surfer): self
+    {
+        $this->surfer = $surfer;
 
         return $this;
     }

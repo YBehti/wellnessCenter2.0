@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="user_type", type="string")
- * @ORM\DiscriminatorMap({"user"="User", "provider"="Provider"})
+ * @ORM\DiscriminatorMap({"user"="User", "provider"="Provider","surfer"="Surfer"})
  */
 
 class User implements UserInterface
