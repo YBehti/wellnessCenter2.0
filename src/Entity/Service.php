@@ -30,6 +30,7 @@ class Service
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("/^[A-Za-z]+$/")
      */
     private $name;
 

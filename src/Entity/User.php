@@ -4,12 +4,16 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="user_type", type="string")
  * @ORM\DiscriminatorMap({"user"="User", "provider"="Provider","surfer"="Surfer"})
+ * @UniqueEntity(""email)
  */
 
 class User implements UserInterface
@@ -23,11 +27,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("/^[0-9]{1,3}$/")
      */
     private $adress_num;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("/^[A-Za-z]+$/")
      */
     private $adress_street;
 
@@ -38,6 +44,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     *
      */
     private $email;
 

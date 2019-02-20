@@ -5,10 +5,15 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProviderRepository")
+ * @UniqueEntity("email_pro")
+ * @UniqueEntity("phone_number")
+ * @UniqueEntity("VAT_number")
  */
 class Provider extends User
 {
@@ -26,11 +31,13 @@ class Provider extends User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("/^[A-Za-z]+$/")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("/^[0-9]{8,15}$/")
      */
     private $phone_number;
 
@@ -56,6 +63,7 @@ class Provider extends User
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Internship", mappedBy="provider")
+     * @Assert\Regex("/^[A-Za-z]+$/")
      */
     private $internship;
 
