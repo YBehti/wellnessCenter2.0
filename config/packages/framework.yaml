@@ -13,6 +13,10 @@ framework:
     #fragments: true
     php_errors:
         log: true
+    assets:
+        packages:
+            images:
+                base_path: '/img'
 
     cache:
         # Put the unique name of your app here: the prefix seed

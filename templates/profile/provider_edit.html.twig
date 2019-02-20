@@ -1,0 +1,154 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    <div class="main">
+        <div class="main-inner">
+            <div class="container">
+                <div class="row">
+                    {#     Photo#}
+
+                    <div class="col-sm-12 col-lg-3">
+                        <div class="sidebar">
+                            <div class="widget">
+                                <div class="user-photo">
+                                    <a href="#">
+
+
+
+
+                                        <img src="{{ asset('assets/img/profile_picture.png') }}" alt="User Photo">
+
+                                    </a>
+                                </div><!-- /.user-photo -->
+                            </div><!-- /.widget -->
+                        </div>
+                    </div>
+
+                            {# Fin photo#}
+
+                    <div class="col-sm-12 col-lg-9">
+                        <div class="content">
+                            {{ form_start(form) }}
+                            <div class="page-title">
+                                <h1>Edit Profile</h1>
+                            </div><!-- /.page-title -->
+
+                            <div class="background-white p20 mb30">
+                                <h3 class="page-title">
+                                    Contact Information
+
+                                </h3>
+
+                                <div class="row">
+                                    
+                                     <div class="form-group col-sm-4">
+                                        {{ form_label(form.email) }}
+                                        {{ form_errors(form.email)}}
+                                        {{ form_widget(form.email) }}
+                                        {{ form_help(form.email) }}
+                                    </div><!-- /.form-group -->
+
+                                   
+
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.email_pro) }}
+                                        {{ form_errors(form.email_pro) }}
+                                        {{ form_widget(form.email_pro) }}
+                                        {{ form_help(form.email_pro) }}
+                                    </div><!-- /.form-group -->
+
+                                   {# <div class="form-group col-sm-4">
+                                        {{ form_label(form.password) }}
+                                        {{ form_errors(form.password) }}
+                                        {{ form_widget(form.password) }}
+                                        {{ form_help(form.password) }}
+                                    </div><!-- /.form-group -->#}
+
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.phone_number) }}
+                                        {{ form_errors(form.phone_number) }}
+                                        {{ form_widget(form.phone_number) }}
+                                        {{ form_help(form.phone_number) }}
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.website) }}
+                                        {{ form_errors(form.website) }}
+                                        {{ form_widget(form.website) }}
+                                        {{ form_help(form.website) }}
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.VAT_number) }}
+                                        {{ form_errors(form.VAT_number) }}
+                                        {{ form_widget(form.VAT_number) }}
+                                        {{ form_help(form.VAT_number) }}
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.name) }}
+                                        {{ form_errors(form.name) }}
+                                        {{ form_widget(form.name) }}
+                                        {{ form_help(form.name) }}
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.adress_street) }}
+                                        {{ form_errors(form.adress_street) }}
+                                        {{ form_widget(form.adress_street) }}
+                                        {{ form_help(form.adress_street) }}
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.adress_num) }}
+                                        {{ form_errors(form.adress_num) }}
+                                        {{ form_widget(form.adress_num) }}
+                                        {{ form_help(form.adress_num) }}
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.locality) }}
+                                        {{ form_errors(form.locality) }}
+                                        {{ form_widget(form.locality) }}
+                                        {{ form_help(form.locality) }}
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.post_code) }}
+                                        {{ form_errors(form.post_code) }}
+                                        {{ form_widget(form.post_code) }}
+                                        {{ form_help(form.post_code) }}
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.services) }}
+                                        {{ form_errors(form.services) }}
+                                        {{ form_widget(form.services) }}
+                                        {{ form_help(form.services) }}
+                                    </div><!-- /.form-group -->
+
+
+
+                                    <div class="row">
+                                        <div class="form-group col-sm-8 mt50">
+                                            {{ form_row(form.submit, { 'attr': {'class': 'btn btn-primary pull-right'} }) }}
+                                        </div><!-- /.form-group -->
+                                    </div>
+
+
+                                </div><!-- /.row -->
+                            </div>
+
+
+
+                            {{ form_end(form) }}
+
+                        </div><!-- /.content -->
+                    </div><!-- /.col-* -->
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </div><!-- /.main-inner -->
+    </div>
+
+{% endblock %}

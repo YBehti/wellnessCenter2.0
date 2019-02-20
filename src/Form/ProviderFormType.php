@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,6 +24,8 @@ class ProviderFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+
+
 
             ->add('email',EmailType::class,array(
                 'label' => 'Email',
@@ -43,7 +46,7 @@ class ProviderFormType extends AbstractType
                     'mapped' => 'false'
                 )
             ))*/
-            ->add('phone_number',NumberType::class,array(
+            ->add('phone_number',TextType::class,array(
                 'label' => 'Phone Number',
                 'attr' => array('class' =>'form-control')
             ))

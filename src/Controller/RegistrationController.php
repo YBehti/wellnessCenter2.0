@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
+use App\Entity\Internship;
 use App\Entity\Provider;
 use App\Entity\Surfer;
 use App\Entity\TempUser;
+use App\Form\ImageType;
+use App\Form\InternshipFormType;
 use App\Form\ProviderFormType;
 use App\Form\SurferFormType;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -12,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 class RegistrationController extends AbstractController
@@ -44,11 +49,11 @@ class RegistrationController extends AbstractController
     function registered(Request $request,ObjectManager $manager,\Swift_Mailer $mailer){
 
         $getType = $request->get('user_type');
-        var_dump($getType);
+
         $getEmail = $request->get('email');
-        var_dump($getEmail);
+
         $getPassword = $request->get('password');
-        var_dump($getPassword);
+
         $token = (hash('sha256',$getEmail));
 
 
@@ -114,6 +119,7 @@ class RegistrationController extends AbstractController
                     ->setConnectionFailed(0)
                     ->setRegistrationDate(new \DateTime());
 
+
                 $form = $this->createForm(SurferFormType::class,$surfer);
                 $form->handleRequest($request);
                 if($form->isSubmitted() && $form->isValid()){
@@ -173,17 +179,77 @@ class RegistrationController extends AbstractController
 
     }
 
+    /**
+     * @Route ("/profile_picture", name="profile_picture")
+     */
+
+    public function uploadImage(Request $request){
+        $image = new Image();
+        $form = $this->createForm(ImageType::class, $image);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid() ){
+            $file = $image->getImage();
+            $fileName = md5(uniqid().'.'.$file->guessExtension);
+            $file->move($this->getParameter('profile_img_directory'),$fileName);
+            $image->setImage($fileName);
+
+           return $this->redirectToRoute('service');
+        }
+        return $this->render('profile/image.html.twig',[
+            'form'=>$form->createView()
+        ]);
+    }
+    /**
+     * @Route ("/profile", name="profile")
+     */
+    public function show_profile(UserInterface $user)
+    {
+        if($user instanceof Provider){
+
+            return $this->render('profile/profile_provider.html.twig',[
+                'user'=>$user]);
+        }elseif ($user instanceof Surfer){
+            return $this->render('profile/profile_surfer.html.twig',[
+                'user'=>$user
+            ]);
+        }
+
+
+    }
+    /**
+     * @Route ("/profile_update", name="profile_update")
+     */
+    public function form_update_view(UserInterface $user,Request $request)
+    {
+        if($user instanceof Surfer){
+            $form = $this->createForm(SurferFormType::class, $user);
+
+            $type = 'surfer';
+        }elseif($user instanceof Provider){
+            $form = $this->createForm(ProviderFormType::class, $user);
+            $type = 'provider';
+        }
+
+        $form->remove('password');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+
+            $manager->flush();
 
 
 
 
+        }
+        dump($this->getUser());
 
-
-
-
-
-
-
+        return $this->render('profile/'. $type .'_edit.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user
+        ]);
+    }
 
 
 

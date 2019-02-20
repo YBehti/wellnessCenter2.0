@@ -54,6 +54,11 @@ class Provider extends User
      */
     private $image;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Internship", mappedBy="provider")
+     */
+    private $internship;
+
 
 
 
@@ -68,6 +73,7 @@ class Provider extends User
 
         parent::__construct();
         $this->image = new ArrayCollection();
+        $this->internship = new ArrayCollection();
 
 
 
@@ -197,6 +203,43 @@ class Provider extends User
 
         return $this;
     }
+
+    /**
+     * @return Collection|Internship[]
+     */
+    public function getInternship(): Collection
+    {
+        return $this->internship;
+    }
+
+    public function addInternship(Internship $internship): self
+    {
+        if (!$this->internship->contains($internship)) {
+            $this->internship[] = $internship;
+            $internship->setProvider($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInternship(Internship $internship): self
+    {
+        if ($this->internship->contains($internship)) {
+            $this->internship->removeElement($internship);
+            // set the owning side to null (unless already changed)
+            if ($internship->getProvider() === $this) {
+                $internship->setProvider(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
 
 
 
