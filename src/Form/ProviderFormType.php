@@ -39,6 +39,10 @@ class ProviderFormType extends AbstractType
                 'label' => 'Password',
                 'attr' => array('class' =>'form-control')
             ))
+            ->add('confirm_password',PasswordType::class,array(
+                'label' => 'Confirm Password',
+                'attr' => array('class' =>'form-control')
+            ))
             /*->add('password_confirm',PasswordType::class,array(
                 'label' => 'Password Confirmation',
                 'attr' => array(

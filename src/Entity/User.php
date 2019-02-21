@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="user_type", type="string")
  * @ORM\DiscriminatorMap({"user"="User", "provider"="Provider","surfer"="Surfer"})
- * @UniqueEntity(""email)
+ * @UniqueEntity("email")
  */
 
 class User implements UserInterface
@@ -66,8 +66,11 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\EqualTo(propertyPath="confirm_password",message="Vos 2 mots de passes ne correspondent pas")
      */
     private $password;
+
+    public $confirm_password;
 
     /**
      * @ORM\Column(type="integer")
@@ -158,11 +161,9 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        return ['ROLE_USER'];
 
-        return array_unique($roles);
+
     }
 
     public function setRoles(array $roles): self

@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Service;
+use App\Form\CommentType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,11 +38,14 @@ class ServiceController extends AbstractController
      */
     public function detail($id)
     {
+
         $repository = $this->getDoctrine()->getRepository(Service::class);
         $service = $repository->find($id);
 
         return $this->render('service/detail.html.twig', [
             'service' => $service,
+
+
         ]);
     }
 

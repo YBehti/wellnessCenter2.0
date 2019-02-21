@@ -43,6 +43,7 @@ class Provider extends User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("/^(BE)?0[0-9]{9}$php/")
      */
     private $VAT_number;
 
@@ -67,6 +68,11 @@ class Provider extends User
      */
     private $internship;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="provider")
+     */
+    private $comment;
+
 
 
 
@@ -82,6 +88,7 @@ class Provider extends User
         parent::__construct();
         $this->image = new ArrayCollection();
         $this->internship = new ArrayCollection();
+        $this->comment = new ArrayCollection();
 
 
 
@@ -246,6 +253,37 @@ class Provider extends User
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComment(): Collection
+    {
+        return $this->comment;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comment->contains($comment)) {
+            $this->comment[] = $comment;
+            $comment->setProvider($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comment->contains($comment)) {
+            $this->comment->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getProvider() === $this) {
+                $comment->setProvider(null);
+            }
+        }
+
+        return $this;
     }
 
 

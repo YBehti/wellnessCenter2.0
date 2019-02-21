@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Provider;
+use App\Form\CommentType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,12 +39,29 @@ class ProviderController extends AbstractController
      * @Route("/provider/{id}", name="provider-detail")
      */
 
-    public function detail($id){
+    public function detail($id, Request $request){
+
+
+
+
+        $user=$this->getUser();
         $repository = $this->getDoctrine()->getRepository(Provider::class);
         $provider = $repository->find($id);
 
+        $comment = new Comment();
+        $form =$this->createForm(CommentType::class,$comment);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $comment->setProvider($provider);
+            $comment->setSurfer($user);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($comment);
+            $manager->flush();
+        }
+
         return $this->render('provider/detail.html.twig',[
             'provider'=> $provider,
+            'form'=> $form->createView()
         ]);
     }
 

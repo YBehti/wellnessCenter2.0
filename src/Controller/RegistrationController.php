@@ -162,7 +162,7 @@ class RegistrationController extends AbstractController
                     $manager->persist($provider);
                     $manager->flush();
 
-                    return $this->redirectToRoute('service');
+                    return $this->redirectToRoute('login');
                 }
                 return $this->render('profile/provider_registration.html.twig',[
                     'form'=>$form->createView()
@@ -179,11 +179,11 @@ class RegistrationController extends AbstractController
 
     }
 
-    /**
+   /* /**
      * @Route ("/profile_picture", name="profile_picture")
      */
 
-    public function uploadImage(Request $request){
+    /*public function uploadImage(Request $request){
         $image = new Image();
         $form = $this->createForm(ImageType::class, $image);
 
@@ -199,7 +199,7 @@ class RegistrationController extends AbstractController
         return $this->render('profile/image.html.twig',[
             'form'=>$form->createView()
         ]);
-    }
+    }*/
     /**
      * @Route ("/profile", name="profile")
      */
