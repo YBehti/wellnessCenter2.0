@@ -117,7 +117,8 @@ class RegistrationController extends AbstractController
                 $surfer
                     ->setBanned(false)
                     ->setConnectionFailed(0)
-                    ->setRegistrationDate(new \DateTime());
+                    ->setRegistrationDate(new \DateTime())
+                    ->setRoles(['ROLE_USER']);
 
 
                 $form = $this->createForm(SurferFormType::class,$surfer);

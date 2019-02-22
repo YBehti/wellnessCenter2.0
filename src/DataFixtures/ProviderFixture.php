@@ -10,12 +10,17 @@ use App\Entity\Provider;
 use App\Entity\Locality;
 use App\Entity\PostCode;
 use App\Entity\Image;
-
-
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 class ProviderFixture extends Fixture
 {
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
     public function load(ObjectManager $manager)
     {
         for($i=0;$i<10;$i++){ //crée 10 services dans un tableau
@@ -35,7 +40,7 @@ class ProviderFixture extends Fixture
 
         }
 
-        for($i=0;$i<10;$i++){ //crée 10 providers dans un tableau
+        for($i=0;$i<40;$i++){ //crée 10 providers dans un tableau
             $profile = new Image();
             $profile->setOrdre(1)
                     ->setImage("https://res.cloudinary.com/behticloud/image/upload/v1543342253/samples/original.jpg")
@@ -69,12 +74,13 @@ class ProviderFixture extends Fixture
 
             $provider->setWebsite("https//website$i.com");
             $provider->setPhoneNumber("0$i/999999");
-            $provider->setPassword("12345");
+            $provider->setPassword($this->passwordEncoder->encodePassword($provider,'toto'));
             $provider->setEmail("email$i@gmail.com");
 
             $provider->setAdressStreet("street$i");
             $provider->setName("provider $i");
             $provider->setAdressNum("$i");
+            $provider->setRoles(['ROLE_USER']);
 
             $provider->setEmailPro("emailPro$i@gmail.com");
 
