@@ -34,13 +34,13 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/service/{id}", name="service-detail")
+     * @Route("/service/{slug}", name="service-detail")
      */
-    public function detail($id)
+    public function detail($slug)
     {
 
         $repository = $this->getDoctrine()->getRepository(Service::class);
-        $service = $repository->find($id);
+        $service = $repository->findOneBy(['slug'=>$slug]);
 
         return $this->render('service/detail.html.twig', [
             'service' => $service,

@@ -44,13 +44,13 @@ class InternshipController extends AbstractController
     }
 
     /**
-     * @Route ("/update_internship/{id}", name="update_internship")
+     * @Route ("/update_internship/{slug}", name="update_internship")
      */
 
-    public function update_internship(Request $request,$id){
+    public function update_internship(Request $request,$slug){
 
         $repository = $this->getDoctrine()->getRepository(Internship::class);
-        $internship = $repository->find($id);
+        $internship = $repository->findOneBy(['slug'=>$slug]);
         $form = $this->createForm(InternshipFormType::class, $internship);
         $form->handleRequest($request);
 
@@ -69,12 +69,12 @@ class InternshipController extends AbstractController
 
     }
     /**
-     * @Route("delete_internship/{id}", name="delete_stage")
+     * @Route("delete_internship/{slug}", name="delete_stage")
      */
-    public function delete_internship($id){
+    public function delete_internship($slug){
 
         $repository = $this->getDoctrine()->getRepository(Internship::class);
-        $internship = $repository->find($id);
+        $internship = $repository->findOneBy(['slug'=>$slug]);
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($internship);
         $manager->flush();

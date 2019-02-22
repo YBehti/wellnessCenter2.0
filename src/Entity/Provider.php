@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
@@ -17,12 +18,21 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Provider extends User
 {
+
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     *  @Gedmo\Slug(fields={"name"})
+     *  @ORM\Column(type="string", length=255, nullable=true)
+     */
+
+    private $slug;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -97,6 +107,8 @@ class Provider extends User
 
 
 
+
+
    /* public function getId(): ?int
     {
         return $this->id;
@@ -159,6 +171,16 @@ class Provider extends User
     {
         $this->website = $website;
 
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
         return $this;
     }
 

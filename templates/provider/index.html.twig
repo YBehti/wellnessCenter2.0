@@ -37,7 +37,8 @@
                                         {% endfor %}
                                             <div class="card-simple-background">
                                                 <div class="card-simple-content">
-                                                    <h2><a href="/provider/{{ provider.id}}">{{provider.name}}</a></h2>
+                                                    {{ dump(provider.slug) }}
+                                                    <h2><a href="{{ path("provider_detail", {slug:provider.slug}) }}">{{ provider.name }}</a></h2>
                                                     <div class="card-simple-rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>

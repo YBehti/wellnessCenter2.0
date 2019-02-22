@@ -3,50 +3,160 @@
 {% block title %}Providers{% endblock %}
 
 {% block main %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
-
-    <div class="example-wrapper">
-        <h1>Look at this looker</h1>
+    <div class="main">
+        <div class="main-inner">
+            <div class="content">
 
 
-        <ul>
+                <div class="container">
+                    <div class="row detail-content">
+                        <div class="col-sm-7">
+                            <h1>Look at this looker</h1>
+                            {% for image in provider.image %}
+                                {% if image.type is same as("logo") %}
+                                    <img src="{{ image.image }}">
+                                {% endif %}
+                                {% if image.type is same as("profile") %}
+                                    <img src="{{ image.image }}">
+                                {% endif %}
+                            {% endfor %}
 
-            {% for image in provider.image %}
-                {% if image.type is same as("logo") %}
-                    <img src="{{ image.image }}">
-                {% endif %}
-                {% if image.type is same as("profile") %}
-                    <img src="{{ image.image }}">
-                {% endif %}
-            {% endfor %}
-                <li><strong>{{ provider.name }}</strong></li>
-                <li>{{ provider.email }}</li>
-                <li>{{ provider.phoneNumber }}</li>
-                <li>{{ provider.website }}</li>
-                <li>{{ provider.adressStreet }}, {{ provider.adressNum }}</li>
-                <li>{{ provider.locality }} {{ provider.postCode }}</li>
-                <li>{{ provider.website }}</li>
-                <li>{{ provider.VATNumber }}</li>
-        </ul>
-                <br/>
-        <h1>What is it that they do</h1>
 
-        <ul>
-                {% for service in provider.services %}
 
-                    <li><a href="/service/{{ service.id }}">{{ service.name }}</a></li>
 
-                {% endfor %}
-        </ul>
-        <br/>
-        <h1>What do you think about it</h1>
-        <h3>{{ provider.comment| length }}</h3>
-        {% if is_granted('ROLE_USER') %}
-            {{ form(form) }}
-        {% endif %}
+
+
+                        </div><!-- /.col-sm-7 -->
+                        <div class="col-sm-5">
+
+                            <div class="background-white p20">
+
+
+                                <h1>What do you think about it</h1>
+                                <h3>Nombre de commentaires total : {{ provider.comment| length }}</h3>
+                                {% if is_granted('ROLE_USER') %}
+                                    {{ form_start(form) }}
+
+
+
+                                    <div class="detail-enquire-form background-white p20">
+                                        <form method="post" action="?">
+                                            <div class="form-group">
+                                                {{ form_label(form.content) }}
+                                                {{ form_errors(form.content)}}
+                                                {{ form_widget(form.content) }}
+                                                {{ form_help(form.content) }}
+                                            </div><!-- /.form-group -->
+
+                                            <div class="form-group">
+                                                {{ form_label(form.evaluation) }}
+                                                {{ form_errors(form.evaluation)}}
+                                                {{ form_widget(form.evaluation) }}
+                                                {{ form_help(form.evaluation) }}
+                                            </div><!-- /.form-group -->
+
+
+                                            {{ form_row(form.submit, { 'attr': {'class': 'btn btn-primary btn-block pull-right'} }) }}
+
+                                        </form>
+                                        {{ form_end(form) }}
+                                    </div>
+
+
+                                {% endif %}
+
+
+                            </div>
+                            <ul>
+
+
+                                <li><strong>{{ provider.name }}</strong></li>
+                                <li>{{ provider.email }}</li>
+                                <li>{{ provider.phoneNumber }}</li>
+                                <li>{{ provider.website }}</li>
+                                <li>{{ provider.adressStreet }}, {{ provider.adressNum }}</li>
+                                <li>{{ provider.locality }} {{ provider.postCode }}</li>
+                                <li>{{ provider.website }}</li>
+                                <li>{{ provider.VATNumber }}</li>
+                            </ul>
+                            <br/>
+                            <h1>What is it that they do</h1>
+
+                            <ul>
+                                {% for service in provider.services %}
+
+                                    <li><a href="/service/{{ service.slug }}">{{ service.name }}</a></li>
+
+                                {% endfor %}
+                            </ul>
+
+
+
+
+
+
+
+                        </div><!-- /.col-sm-5 -->
+
+
+
+
+                    </div><!-- /.row -->
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="reviews">
+                                {% for comment in provider.comment %}
+                                    <div class="review">
+
+
+                                        <div class="review-inner">
+                                            <div class="review-title">
+
+                                                <h2>{{ comment.surfer.name }}</h2>
+                                                <div class="review-overall-rating">
+                                                    <span class="overall-rating-title">Total Score:</span>
+
+                                                    {% set k = comment.evaluation %}
+                                                    {% for i in range(1, k) %}
+                                                        <i class="fa fa-star"></i>
+                                                    {% endfor %}
+
+                                                </div><!-- /.review-rating -->
+
+
+
+                                            </div><!-- /.review-title -->
+
+                                            <div class="review-content-wrapper">
+                                                <div class="review-content">
+                                                    <div class="review-pros">
+                                                        <p>{{ comment.content }}</p>
+                                                    </div><!-- /.pros -->
+
+                                                </div><!-- /.review-content -->
+
+
+                                            </div><!-- /.review-content-wrapper -->
+
+                                        </div><!-- /.review-inner -->
+                                    </div><!-- /.review -->
+
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /.container -->
+
+            </div><!-- /.content -->
+        </div><!-- /.main-inner -->
+    </div>
+
+
+
+
 
 
 

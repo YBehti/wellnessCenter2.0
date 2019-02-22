@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class ProviderController extends AbstractController
 {
     /**
@@ -36,17 +37,17 @@ class ProviderController extends AbstractController
     }
 
     /**
-     * @Route("/provider/{id}", name="provider-detail")
+     * @Route("/provider/{slug}", name="provider_detail")
      */
 
-    public function detail($id, Request $request){
+    public function detail($slug, Request $request){
 
 
 
 
         $user=$this->getUser();
         $repository = $this->getDoctrine()->getRepository(Provider::class);
-        $provider = $repository->find($id);
+        $provider = $repository->findOneBy(['slug'=>$slug]);
 
         $comment = new Comment();
         $form =$this->createForm(CommentType::class,$comment);
@@ -59,8 +60,12 @@ class ProviderController extends AbstractController
             $manager->flush();
         }
 
+
+
         return $this->render('provider/detail.html.twig',[
+
             'provider'=> $provider,
+
             'form'=> $form->createView()
         ]);
     }
