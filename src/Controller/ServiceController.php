@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ServiceController extends AbstractController
 {
     /**
-     * @Route("/service", name="service")
+     * @Route("/", name="service")
      */
     public function index(PaginatorInterface $paginator,Request $request){
 

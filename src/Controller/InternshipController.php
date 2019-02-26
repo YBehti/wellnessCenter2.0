@@ -35,7 +35,7 @@ class InternshipController extends AbstractController
             $manager->persist($internship);
             $manager->flush();
 
-            return $this->redirectToRoute('service');
+            return $this->redirectToRoute('profile');
         }
         return $this->render('internship/add_internship.html.twig', [
             'user' => $user,
@@ -44,7 +44,7 @@ class InternshipController extends AbstractController
     }
 
     /**
-     * @Route ("/update_internship/{slug}", name="update_internship")
+     * @Route ("/internship_update/{slug}", name="update_internship")
      */
 
     public function update_internship(Request $request,$slug){
@@ -69,7 +69,7 @@ class InternshipController extends AbstractController
 
     }
     /**
-     * @Route("delete_internship/{slug}", name="delete_stage")
+     * @Route("/internship_delete/{slug}", name="delete_stage")
      */
     public function delete_internship($slug){
 

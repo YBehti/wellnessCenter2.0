@@ -172,6 +172,8 @@ class RegistrationController extends AbstractController
                 break;
         }
 
+        return $this->redirectToRoute("service");
+
 
 
 
@@ -180,27 +182,7 @@ class RegistrationController extends AbstractController
 
     }
 
-   /* /**
-     * @Route ("/profile_picture", name="profile_picture")
-     */
 
-    /*public function uploadImage(Request $request){
-        $image = new Image();
-        $form = $this->createForm(ImageType::class, $image);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid() ){
-            $file = $image->getImage();
-            $fileName = md5(uniqid().'.'.$file->guessExtension);
-            $file->move($this->getParameter('profile_img_directory'),$fileName);
-            $image->setImage($fileName);
-
-           return $this->redirectToRoute('service');
-        }
-        return $this->render('profile/image.html.twig',[
-            'form'=>$form->createView()
-        ]);
-    }*/
     /**
      * @Route ("/profile", name="profile")
      */
@@ -233,6 +215,7 @@ class RegistrationController extends AbstractController
         }
 
         $form->remove('password');
+        $form->remove('confirm_password');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -244,7 +227,7 @@ class RegistrationController extends AbstractController
 
 
         }
-        dump($this->getUser());
+
 
         return $this->render('profile/'. $type .'_edit.html.twig', [
             'form' => $form->createView(),

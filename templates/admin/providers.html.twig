@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
-
+{% block form %}
+{% endblock %}
 {% block main %}
     <div class="main">
         <div class="outer-admin">
@@ -49,7 +50,7 @@
                                                                 <td class="right">
 
                                                                     <a href="{{ path("provider_admin_detail", {slug:provider.slug}) }}" class="btn btn-xs btn-primary">Detail</a>
-                                                                    <a href="#" class="btn btn-xs btn-danger">Ban</a>
+
 
                                                                 </td>
                                                             </tr>
@@ -58,7 +59,7 @@
 
                                                             </tbody>
                                                         </table>
-                                                        <a href="{{ path('admin_services') }}"><button class="btn btn-primary"></button>See Services</a>
+                                                        <a class="btn btn-primary" href="{{ path('admin_services') }}">See Services</a>
                                                     </div><!-- /.users -->
                                                     {{ knp_pagination_render(providers) }}
                                                 </div><!-- /.col-* -->

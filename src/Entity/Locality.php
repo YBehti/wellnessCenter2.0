@@ -21,7 +21,7 @@ class Locality
 
     /**
      * @ORM\Column(type="string", length=30)
-     * @Assert\Regex("/^[A-Za-z]+$/")
+
      */
     private $locality;
 

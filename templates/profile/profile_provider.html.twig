@@ -7,24 +7,7 @@
             <div class="container">
                 <div class="row">
 
-                    {#     Photo#}
 
-                    <div class="col-sm-4 col-lg-3">
-                        <div class="sidebar">
-                            <div class="widget">
-                                <div class="user-photo">
-                                    <a href="#">
-
-                                        <img src="user.image" alt="User Photo">
-
-
-                                    </a>
-                                </div><!-- /.user-photo -->
-                            </div><!-- /.widget -->
-                        </div>
-                    </div>
-
-                    {# Fin photo#}
 
 
                 </div><!-- /.sidebar -->
@@ -123,8 +106,8 @@
                                 <div class="col-sm-4">
                                     <p>{{ internship.name }}</p>
                                     <div class="btn-group">
-                                        <a href="/update_internship/{{ internship.id }}"><button class="btn btn-secondary">update</button></a>
-                                        <a href="/delete_internship/{{ internship.id }}"><button class="btn btn-primary">remove</button></a>
+                                        <a href="{{ path('update_internship', {slug:internship.slug}) }}"><button class="btn btn-secondary">update</button></a>
+                                        <a href="{{ path('delete_stage', {slug:internship.slug}) }}"><button class="btn btn-primary">remove</button></a>
 
                                     </div>
                                 </div>

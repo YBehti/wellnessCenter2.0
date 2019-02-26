@@ -7,24 +7,7 @@
         <div class="container">
             <div class="row">
 
-           {#     Photo#}
 
-                <div class="col-sm-4 col-lg-3">
-                    <div class="sidebar">
-                        <div class="widget">
-                            <div class="user-photo">
-                                <a href="#">
-
-                                        <img src="{{ asset('assets/img/profile_picture.png') }}" alt="User Photo">
-
-
-                                </a>
-                            </div><!-- /.user-photo -->
-                        </div><!-- /.widget -->
-                    </div>
-                </div>
-
-           {# Fin photo#}
 
 
                     </div><!-- /.sidebar -->
@@ -52,12 +35,7 @@
                                     {{ form_help(form.email) }}
                                 </div><!-- /.form-group -->
 
-                                <div class="form-group col-sm-4">
-                                    {{ form_label(form.password) }}
-                                    {{ form_errors(form.password) }}
-                                    {{ form_widget(form.password) }}
-                                    {{ form_help(form.password) }}
-                                </div><!-- /.form-group -->
+
 
                                 <div class="form-group col-sm-4">
                                     {{ form_label(form.name) }}

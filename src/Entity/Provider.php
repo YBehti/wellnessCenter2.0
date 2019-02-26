@@ -13,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProviderRepository")
  * @UniqueEntity("email_pro")
- * @UniqueEntity("phone_number")
+
  * @UniqueEntity("VAT_number")
  */
 class Provider extends User
@@ -74,7 +74,7 @@ class Provider extends User
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Internship", mappedBy="provider")
-     * @Assert\Regex("/^[A-Za-z]+$/")
+
      */
     private $internship;
 
@@ -105,14 +105,14 @@ class Provider extends User
 
     }
 
-
-
-
-
-   /* public function getId(): ?int
+    public function getId(): ?int
     {
         return $this->id;
-    }*/
+    }
+
+
+
+
 
     public function getEmailPro(): ?string
     {

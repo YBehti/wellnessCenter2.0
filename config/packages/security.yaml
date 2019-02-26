@@ -21,7 +21,7 @@ security:
             logout:
 
                 path: /logout
-                target: /service
+                target: /
 
 
             # activate different ways to authenticate
@@ -31,7 +31,7 @@ security:
 
             form_login:
                 check_path: login
-                default_target_path: /service
+                default_target_path: /
             # https://symfony.com/doc/current/security/form_login_setup.html
 
 
@@ -41,4 +41,5 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: [ROLE_ADMIN] }
-        - { path: ^/user, roles: [ROLE_USER] }
+        - { path: ^/user_surfer, roles: [ROLE_USER] }
+        - { path: ^/user_provider, roles: [ROLE_VENDOR] }

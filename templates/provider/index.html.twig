@@ -32,23 +32,18 @@
                                         {% for image in provider.image %}
 
                                         {% if image.type is same as("profile") %}
-                                            <div class="card-simple" data-background-image="{{ image.image }}" style="background-image: url(&quot;assets/img/tmp/product-9.jpg&quot;);">
+                                            <div class="card-simple" data-background-image="{{ image.image }}">
                                         {% endif %}
                                         {% endfor %}
                                             <div class="card-simple-background">
                                                 <div class="card-simple-content">
-                                                    {{ dump(provider.slug) }}
+
                                                     <h2><a href="{{ path("provider_detail", {slug:provider.slug}) }}">{{ provider.name }}</a></h2>
-                                                    <div class="card-simple-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </div><!-- /.card-rating -->
+
 
                                                     <div class="card-simple-actions">
-                                                        <p>{{ provider.email }} {{ provider.phoneNumber }} {{ provider.website }}</p>
+                                                        <p><a href="mailto:{{ provider.email }} ">{{ provider.email }} </a><br>{{ provider.phoneNumber }}<br>
+                                                            <a href="{{ provider.website }}">{{ provider.website }}</a></p>
 
                                                         {% for image in provider.image %}
                                                         {% if image.type is same as("logo") %}

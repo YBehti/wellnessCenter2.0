@@ -72,7 +72,7 @@ class ProviderFixture extends Fixture
             $provider->setLocality($locality);
             $provider->setPostCode($postcode);
 
-            $provider->setWebsite("https//website$i.com");
+            $provider->setWebsite("https://website$i.com");
             $provider->setPhoneNumber("0$i/999999");
             $provider->setPassword($this->passwordEncoder->encodePassword($provider,'toto'));
             $provider->setEmail("email$i@gmail.com");
@@ -80,7 +80,7 @@ class ProviderFixture extends Fixture
             $provider->setAdressStreet("street$i");
             $provider->setName("provider $i");
             $provider->setAdressNum("$i");
-            $provider->setRoles(['ROLE_USER']);
+            $provider->setRoles(['ROLE_VENDOR']);
 
             $provider->setEmailPro("emailPro$i@gmail.com");
 

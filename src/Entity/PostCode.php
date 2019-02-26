@@ -21,7 +21,7 @@ class PostCode
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Regex("/[0-9]{4,6}/")
+     *
      */
     private $post_code;
 

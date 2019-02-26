@@ -32,9 +32,12 @@
                             <div class="background-white p20">
 
 
-                                <h1>What do you think about it</h1>
-                                <h3>Nombre de commentaires total : {{ provider.comment| length }}</h3>
+
                                 {% if is_granted('ROLE_USER') %}
+
+
+                                    <h1>What do you think about it</h1>
+                                    <h3>Nombre de commentaires total : {{ provider.comment| length }}</h3>
                                     {{ form_start(form) }}
 
 
@@ -71,12 +74,11 @@
 
 
                                 <li><strong>{{ provider.name }}</strong></li>
-                                <li>{{ provider.email }}</li>
+                                <li><a href="mailto:{{ provider.email }}">{{ provider.email }}</a></li>
                                 <li>{{ provider.phoneNumber }}</li>
-                                <li>{{ provider.website }}</li>
+                                <li><a href="{{ provider.website }}">{{ provider.website }}</a></li>
                                 <li>{{ provider.adressStreet }}, {{ provider.adressNum }}</li>
                                 <li>{{ provider.locality }} {{ provider.postCode }}</li>
-                                <li>{{ provider.website }}</li>
                                 <li>{{ provider.VATNumber }}</li>
                             </ul>
                             <br/>
