@@ -3,34 +3,62 @@
 {% block title %}Service{% endblock %}
 
 {% block main %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
+<div class="main">
+    <div class="main-inner">
+        <div class="content">
 
-    <div class="example-wrapper">
-        <h1>They can do WHAAAT</h1>
 
-        <ul>
-                <img src="{{ service.vitrine }}" style="width: 400px;">
+            <div class="container">
+                {% if is_granted ('ROLE_ADMIN') %}
 
-                <li><strong>{{ service.name }}</strong></li>
+                    <a href="{{ path('delete_service',{slug:service.slug}) }}" class="btn btn-xs btn-danger">Delete</a>
+                    <a href="{{ path("update_service", {slug:service.slug}) }}" class="btn btn-xs btn-warning">Update</a>
 
-                <li>{{ service.description }}</li>
-        </ul>
-        <br/>
+                {% endif %}
+                <div class="row detail-content">
 
-        <h1>Who else can manage that, you ask ?</h1>
-
-        <ul>
-            {% for provider in service.providers %}
-                <li><a href="/provider/{{ provider.slug }}">{{ provider.name }}</a></li>
-            {% endfor %}
-        </ul>
+                    <div class="col-sm-7">
 
 
 
 
 
+
+                        <h1>They can do WHAAAT</h1>
+
+                        <ul>
+                            <img src="{{ service.vitrine }}" style="width: 400px;">
+
+                            <li><strong>{{ service.name }}</strong></li>
+
+                            <li>{{ service.description }}</li>
+                        </ul>
+                        <br/>
+                    </div>
+                    <div class=" col-sm-5">
+
+                        <h1>Who else can manage that, you ask ?</h1>
+
+                        <ul>
+                            {% for provider in service.providers %}
+                                <li><a href="/provider/{{ provider.slug }}">{{ provider.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+
+
+                    </div>
+
+                </div>
+                {% if is_granted ('ROLE_ADMIN') %}
+                    <button class="btn btn-secondary " style="color:white"><a href="{{ path('service') }}" style="color:white">See services</a></button>
+
+                {% endif %}
+            </div>
+        </div>
     </div>
-{% endblock %}
+</div>
+
+
+
+
+                {% endblock %}

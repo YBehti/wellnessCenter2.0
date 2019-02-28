@@ -2,6 +2,8 @@
 
 {% block title %}Services{% endblock %}
 
+
+
 {% block main %}
 
 
@@ -40,11 +42,29 @@
 
                                         </div><!-- /.card-simple-background -->
                                     </div><!-- /.card-simple -->
+                                    {% if is_granted ('ROLE_ADMIN') %}
+
+                                        <div>
+                                            <a href="{{ path("service-detail", {slug:service.slug}) }}" class="btn btn-xs btn-primary">Detail</a>
+                                            <a href="{{ path('delete_service',{slug:service.slug}) }}" class="btn btn-xs btn-danger">Delete</a>
+                                            <a href="{{ path("update_service", {slug:service.slug}) }}" class="btn btn-xs btn-warning">Update</a>
+                                        </div>
+                                        <br>
+
+                                    {% endif %}
+
                                 </div><!-- /.col-* -->
 
                                 {% endfor %}
 
+
                             </div><!-- /.row -->
+                            {% if is_granted ('ROLE_ADMIN') %}
+
+                                <a href="{{ path('admin_add_service') }}" class="btn btn-secondary">+ Add service</a>
+                                <a href="{{ path('admin') }}" class="btn btn-info">See Providers</a>
+
+                            {% endif %}
                             <div class="navigation">
                                 {{ knp_pagination_render(services) }}
                             </div>

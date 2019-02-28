@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
-
+{% block form %}
+{% endblock %}
 {% block main %}
 
     <div class="main">
@@ -22,52 +23,33 @@
                                 </h3>
 
                                 <div class="row">
-                                    
-                                     <div class="form-group col-sm-4">
-                                        {{ form_label(form.email) }}
-                                        {{ form_errors(form.email)}}
-                                        {{ form_widget(form.email) }}
-                                        {{ form_help(form.email) }}
-                                    </div><!-- /.form-group -->
 
-                                   
-
-                                    <div class="form-group col-sm-4">
-                                        {{ form_label(form.email_pro) }}
-                                        {{ form_errors(form.email_pro) }}
-                                        {{ form_widget(form.email_pro) }}
-                                        {{ form_help(form.email_pro) }}
-                                    </div><!-- /.form-group -->
-
-
-
-                                    <div class="form-group col-sm-4">
-                                        {{ form_label(form.phone_number) }}
-                                        {{ form_errors(form.phone_number) }}
-                                        {{ form_widget(form.phone_number) }}
-                                        {{ form_help(form.phone_number) }}
-                                    </div><!-- /.form-group -->
-
-                                    <div class="form-group col-sm-4">
-                                        {{ form_label(form.website) }}
-                                        {{ form_errors(form.website) }}
-                                        {{ form_widget(form.website) }}
-                                        {{ form_help(form.website) }}
-                                    </div><!-- /.form-group -->
-
-                                    <div class="form-group col-sm-4">
-                                        {{ form_label(form.VAT_number) }}
-                                        {{ form_errors(form.VAT_number) }}
-                                        {{ form_widget(form.VAT_number) }}
-                                        {{ form_help(form.VAT_number) }}
-                                    </div><!-- /.form-group -->
-
+                                    {% if is_granted ('ROLE_USER') %}
+                                        <div class="form-group col-sm-4">
+                                            {{ form_label(form.firstname) }}
+                                            {{ form_errors(form.firstname) }}
+                                            {{ form_widget(form.firstname) }}
+                                            {{ form_help(form.firstname) }}
+                                        </div><!-- /.form-group -->
+                                    {% endif %}
                                     <div class="form-group col-sm-4">
                                         {{ form_label(form.name) }}
                                         {{ form_errors(form.name) }}
                                         {{ form_widget(form.name) }}
                                         {{ form_help(form.name) }}
                                     </div><!-- /.form-group -->
+
+                                    {% block password %}
+                                    {% endblock %}
+
+
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.email) }}
+                                        {{ form_errors(form.email)}}
+                                        {{ form_widget(form.email) }}
+                                        {{ form_help(form.email) }}
+                                    </div><!-- /.form-group -->
+
 
                                     <div class="form-group col-sm-4">
                                         {{ form_label(form.adress_street) }}
@@ -96,6 +78,35 @@
                                         {{ form_widget(form.post_code) }}
                                         {{ form_help(form.post_code) }}
                                     </div><!-- /.form-group -->
+                                    {% if is_granted ('ROLE_VENDOR') or is_granted ('ROLE_ADMIN')%}
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.email_pro) }}
+                                        {{ form_errors(form.email_pro) }}
+                                        {{ form_widget(form.email_pro) }}
+                                        {{ form_help(form.email_pro) }}
+                                    </div><!-- /.form-group -->
+
+
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.phone_number) }}
+                                        {{ form_errors(form.phone_number) }}
+                                        {{ form_widget(form.phone_number) }}
+                                        {{ form_help(form.phone_number) }}
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.website) }}
+                                        {{ form_errors(form.website) }}
+                                        {{ form_widget(form.website) }}
+                                        {{ form_help(form.website) }}
+                                    </div><!-- /.form-group -->
+
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.VAT_number) }}
+                                        {{ form_errors(form.VAT_number) }}
+                                        {{ form_widget(form.VAT_number) }}
+                                        {{ form_help(form.VAT_number) }}
+                                    </div><!-- /.form-group -->
 
                                     <div class="form-group col-sm-4">
                                         {{ form_label(form.services) }}
@@ -103,6 +114,9 @@
                                         {{ form_widget(form.services) }}
                                         {{ form_help(form.services) }}
                                     </div><!-- /.form-group -->
+
+
+                                    {% endif %}
 
 
 

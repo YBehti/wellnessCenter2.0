@@ -66,8 +66,9 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\EqualTo(propertyPath="confirm_password",message="Vos 2 mots de passes ne correspondent pas")
+
      */
+
     private $password;
 
     public $confirm_password;

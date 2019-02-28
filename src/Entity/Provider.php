@@ -53,7 +53,7 @@ class Provider extends User
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Regex("/^(BE)?0[0-9]{9}$php/")
+
      */
     private $VAT_number;
 

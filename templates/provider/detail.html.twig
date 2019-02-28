@@ -11,6 +11,11 @@
                 <div class="container">
                     <div class="row detail-content">
                         <div class="col-sm-7">
+                            {% if is_granted ('ROLE_ADMIN') %}
+                            <a class="btn btn-primary mt50" href="{{ path('admin') }}">Back</a>
+                            <a class="btn btn-warning mt50" href="{{ path('provider_update', {slug:provider.slug}) }}">Edit</a>
+                            <a class="btn btn-danger mt50" href="#">Ban</a>
+                            {% endif %}
                             <h1>Look at this looker</h1>
                             {% for image in provider.image %}
                                 {% if image.type is same as("logo") %}
@@ -147,6 +152,7 @@
 
                                 {% endfor %}
                             </div>
+
                         </div>
                     </div>
 

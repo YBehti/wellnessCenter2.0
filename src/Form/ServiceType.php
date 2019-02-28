@@ -30,7 +30,10 @@ class ServiceType extends AbstractType
                 'attr' => array('class' => 'form-control')
             ))
 
-            ->add('submit', SubmitType::class, ['label' => 'Register'])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Register',
+                'attr'=>array('class'=>'form-control btn btn-primary')
+            ])
 
 
         ;

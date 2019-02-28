@@ -62,11 +62,26 @@
 
                                             </div><!-- /.card-simple-background -->
                                         </div><!-- /.card-simple -->
+                                        {% if is_granted ('ROLE_ADMIN') %}
+                                        <div>
+                                            <a href="{{ path("provider_detail", {slug:provider.slug}) }}" class="btn btn-xs btn-primary">Detail</a>
+                                            <a href="{{ path("provider_update", {slug:provider.slug}) }}" class="btn btn-xs btn-warning">Edit</a>
+                                            <a href="#" class="btn btn-xs btn-danger">Ban</a>
+                                        </div>
+                                        <br>
+                                        {% endif %}
+
+
                                     </div><!-- /.col-* -->
 
                                 {% endfor %}
 
+
+
                             </div><!-- /.row -->
+                            {% if is_granted ('ROLE_ADMIN') %}
+                            <a class="btn btn-info" href="{{ path('service') }}">See Services</a>
+                            {% endif %}
                             <div class="navigation">
                                 {{ knp_pagination_render(providers) }}
                             </div>

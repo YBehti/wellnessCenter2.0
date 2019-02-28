@@ -136,7 +136,7 @@ class RegistrationController extends AbstractController
 
                     return $this->redirectToRoute('service');
                 }
-                return $this->render('profile/surfer_registration.html.twig',[
+                return $this->render('profile/registration_form.html.twig',[
 
                     'form'=>$form->createView()
 
@@ -165,7 +165,7 @@ class RegistrationController extends AbstractController
 
                     return $this->redirectToRoute('login');
                 }
-                return $this->render('profile/provider_registration.html.twig',[
+                return $this->render('profile/registration_form.html.twig',[
                     'form'=>$form->createView()
                 ]);
 
@@ -188,18 +188,13 @@ class RegistrationController extends AbstractController
      */
     public function show_profile(UserInterface $user)
     {
-        if($user instanceof Provider){
 
-            return $this->render('profile/profile_provider.html.twig',[
+        return $this->render('profile/profile_view.html.twig',[
                 'user'=>$user]);
-        }elseif ($user instanceof Surfer){
-            return $this->render('profile/profile_surfer.html.twig',[
-                'user'=>$user
-            ]);
-        }
-
 
     }
+
+
     /**
      * @Route ("/profile_update", name="profile_update")
      */
@@ -208,10 +203,9 @@ class RegistrationController extends AbstractController
         if($user instanceof Surfer){
             $form = $this->createForm(SurferFormType::class, $user);
 
-            $type = 'surfer';
         }elseif($user instanceof Provider){
             $form = $this->createForm(ProviderFormType::class, $user);
-            $type = 'provider';
+
         }
 
         $form->remove('password');
@@ -224,14 +218,14 @@ class RegistrationController extends AbstractController
             $manager->flush();
 
 
-
+            $this->redirectToRoute('profile');
 
         }
 
 
-        return $this->render('profile/'. $type .'_edit.html.twig', [
+        return $this->render('profile/profile_form.html.twig', [
             'form' => $form->createView(),
-            'user' => $user
+
         ]);
     }
 

@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+
+{% block form %}
+{% endblock %}
+
+{% block main %}
+
+    <div class="main">
+        <div class="main-inner">
+            <div class="container">
+                <div class="row">
+
+
+
+
+                </div><!-- /.sidebar -->
+            </div><!-- /.col-* -->
+
+            <div class="col-sm-12 col-lg-12">
+                <div class="content">
+
+                    <div class="page-title">
+                        <h1>Your profile</h1>
+                    </div><!-- /.page-title -->
+
+                    <div class="background-white p20 mb30">
+                        <h3 class="page-title">
+                            Contact Information
+                            <a href="/profile_update">
+                                <button class="btn btn-primary">Edit</button>
+                            </a>
+
+                        </h3>
+
+                        <div class="row">
+
+                            {% if is_granted ('ROLE_USER') %}
+
+                            <div class="col-sm-4">
+                                <p>Firstname: {{ user.firstname }}</p>
+                            </div>
+
+                            {% endif %}
+                            <div class="col-sm-4">
+                                <p>Name: {{ user.name }}</p>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <p>Adresse : {{ user.adressStreet }}, {{ user.adressNum }}</p>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <p>Zipcode: {{ user.postCode }}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>Locality: {{ user.locality }}</p>
+                            </div>
+
+
+                            <div class="col-sm-4">
+                                <p>Email: {{ user.email }}</p>
+                            </div>
+
+                            {% if is_granted ('ROLE_VENDOR') %}
+                                <div class="col-sm-4">
+                                    <p>Email Pro: {{ user.emailPro }}</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <p>Phone Number: {{ user.phoneNumber }}</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <p>VAT Number: {{ user.VATNumber }}</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <p>Website: {{ user.website }}</p>
+                                </div>
+                            {% endif %}
+
+
+
+
+
+
+
+
+                        </div><!-- /.row -->
+                    </div>
+                    {% if is_granted ('ROLE_VENDOR') %}
+                        <div class="background-white p20 mb30">
+                            <h3 class="page-title">
+                                Services
+                            </h3>
+
+                            <div class="row">
+
+                                {% for service in user.services %}
+                                    <div class="col-sm-4">
+                                        <p>{{ service }}</p>
+
+
+                                    </div>
+                                {% endfor %}
+
+
+
+
+                            </div>
+                        </div>
+
+                        <div class="background-white p20 mb30">
+                            <h3 class="page-title">
+                                Stages
+                                <a href="/add_internship">
+                                    <button class="btn btn-primary"> +Add an Internship </button>
+                                </a>
+                            </h3>
+
+                            <div class="row">
+
+                                {% for internship in user.internship %}
+                                    <div class="col-sm-4">
+                                        <p>{{ internship.name }}</p>
+                                        <div class="btn-group">
+                                            <a href="{{ path('update_internship', {slug:internship.slug}) }}"><button class="btn btn-secondary">update</button></a>
+                                            <a href="{{ path('delete_stage', {slug:internship.slug}) }}"><button class="btn btn-primary">remove</button></a>
+
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+
+
+
+                </div><!-- /.content -->
+            </div><!-- /.col-* -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+    </div><!-- /.main-inner -->
+    </div>
+{% endblock %}
+
