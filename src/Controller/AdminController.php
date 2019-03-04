@@ -138,7 +138,6 @@ class AdminController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($service);
             $manager->flush();
-
             return $this->redirectToRoute('service');
         }
         return $this->render('service/service_form.html.twig', [

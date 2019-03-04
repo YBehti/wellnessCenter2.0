@@ -90,10 +90,7 @@ class RegistrationController extends AbstractController
 
     function complete_registration($token,$type, Request $request){
 
-        $user = $this->getDoctrine()->getRepository(TempUser::class)
-            ->findOneBy([
-                'token'=>$token
-            ]);
+
 
         switch ($type){
 
@@ -104,66 +101,51 @@ class RegistrationController extends AbstractController
                     ->setConnectionFailed(0)
                     ->setRegistrationDate(new \DateTime())
                     ->setRoles(['ROLE_USER']);
-
-
-                $form = $this->createForm(SurferFormType::class,$surfer);
-                $form->handleRequest($request);
-                if($form->isSubmitted() && $form->isValid()){
-                    $manager = $this->getDoctrine()->getManager();
-                    $password = $form->get('password')->getData();
-                    $surfer->setPassword($this->passwordEncoder->encodePassword(
-                        $surfer,
-                        $password
-
-                    ));
-                    $manager->persist($surfer);
-                    $manager->flush();
-
-                    return $this->redirectToRoute('service');
-                }
-                return $this->render('profile/registration_form.html.twig',[
-
-                    'form'=>$form->createView()
-
-                ]);
+                $user = $surfer;
+                $form = $this->createForm(SurferFormType::class,$user);
                 break;
             case 'provider':
                 $provider = new Provider();
                 $provider
                     ->setBanned(false)
                     ->setConnectionFailed(0)
-                    ->setRegistrationDate(new \DateTime());
-
-                $form = $this->createForm(ProviderFormType::class,$provider);
-                $form->handleRequest($request);
-
-                if($form->isSubmitted() && $form->isValid()){
-                    $manager = $this->getDoctrine()->getManager();
-                    $password = $form->get('password')->getData();
-                    $provider->setPassword($this->passwordEncoder->encodePassword(
-                        $provider,
-                        $password
-
-                    ));
-                    $manager->persist($provider);
-                    $manager->flush();
-
-                    return $this->redirectToRoute('login');
-                }
-                return $this->render('profile/registration_form.html.twig',[
-                    'form'=>$form->createView()
-                ]);
-
+                    ->setRegistrationDate(new \DateTime())
+                    ->setRoles(['ROLE_VENDOR']);
+                $user = $provider;
+                $form = $this->createForm(ProviderFormType::class,$user);
                 break;
         }
 
-        return $this->redirectToRoute("service");
+
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $manager = $this->getDoctrine()->getManager();
+            $password = $form->get('password')->getData();
+            $user->setPassword($this->passwordEncoder->encodePassword(
+                $user,
+                $password
+
+            ));
+            $manager->persist($user);
+            $manager->flush();
+            $tempUser = $this->getDoctrine()->getRepository(TempUser::class)
+           ->findOneBy([
+               'token'=>$token
+           ]);
+            $cleaner = $this->getDoctrine()->getManager();
+            $cleaner->remove($tempUser);
+            $manager->flush();
 
 
 
+            return $this->redirectToRoute('login');
+        }
+        return $this->render('profile/registration_form.html.twig',[
 
+            'form'=>$form->createView()
 
-
+        ]);
 
     }
 
