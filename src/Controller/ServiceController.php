@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
+
 use App\Entity\Service;
-use App\Form\CommentType;
+
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

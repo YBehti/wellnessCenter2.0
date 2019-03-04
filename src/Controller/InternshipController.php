@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
-use Doctrine\ORM\Repository\RepositoryFactory;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Internship;
 use App\Form\InternshipFormType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\User\UserInterface;
+
 
 class InternshipController extends AbstractController
 {

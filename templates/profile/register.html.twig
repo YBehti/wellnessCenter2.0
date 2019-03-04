@@ -19,7 +19,7 @@
                                 <h1>Register</h1>
                             </div><!-- /.page-title -->
 
-                            <form method="post" action="/registered">
+                            <form method="post" action="{{ path('registered') }}">
 
                                 <div class="form-group">
                                     <label for="login-form-first-name">User Type</label>
@@ -36,25 +36,13 @@
                                     <input type="email" class="form-control" name="email" id="login-form-email">
                                 </div><!-- /.form-group -->
 
-                                {#<div class="form-group">
-                                    <label for="login-form-first-name">First name</label>
-                                    <input type="text" class="form-control" name="first_name" id="login-form-first-name">
-                                </div><!-- /.form-group -->#}
-
-                               {# <div class="form-group">
-                                    <label for="login-form-last-name">Last name</label>
-                                    <input type="text" class="form-control" name="last_name" id="login-form-last-name">
-                                </div><!-- /.form-group -->#}
 
                                 <div class="form-group">
                                     <label for="login-form-password">Password</label>
                                     <input type="password" class="form-control" name="password" id="login-form-password">
                                 </div><!-- /.form-group -->
 
-                               {# <div class="form-group">
-                                    <label for="login-form-password-retype">Retype password</label>
-                                    <input type="password" class="form-control" name="password_retype" id="login-form-password-retype">
-                                </div><!-- /.form-group -->#}
+
 
                                 <button type="submit" class="btn btn-primary pull-right">Register</button>
                             </form>

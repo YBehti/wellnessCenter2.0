@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\PostCode;
-use App\Entity\Service;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 
 class PostCodeController extends AbstractController
 {
