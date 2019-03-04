@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Image;
-use App\Entity\Internship;
+
+
 use App\Entity\Provider;
 use App\Entity\Surfer;
 use App\Entity\TempUser;
-use App\Form\ImageType;
-use App\Form\InternshipFormType;
+
+
 use App\Form\ProviderFormType;
 use App\Form\SurferFormType;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Services\Mailer;
 
 
 class RegistrationController extends AbstractController
@@ -46,7 +47,7 @@ class RegistrationController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      */
 
-    function registered(Request $request,ObjectManager $manager,\Swift_Mailer $mailer){
+    function registered(Request $request,ObjectManager $manager,Mailer $mailer){
 
         $getType = $request->get('user_type');
 
@@ -74,23 +75,7 @@ class RegistrationController extends AbstractController
 
 
 
-        $message = (new \Swift_Message('Wellness Center'))
-            ->setFrom('noreply@wellness')
-            ->setTo($getEmail)
-            ->setBody(
-                $this->renderView(
-
-                    'email/registration.html.twig',
-                    array('email' => $getEmail,
-                        'token'=>$token,
-                        'type'=>$getType)
-                ),
-                'text/html'
-            )
-
-        ;
-
-        $mailer->send($message);
+        $mailer->SendMail($getEmail,$token,$getType);
 
         return $this->render('profile/redirect.html.twig',[
             'email'=>$getEmail
