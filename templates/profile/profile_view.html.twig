@@ -124,51 +124,31 @@
                         </div>
                         <div class="background-white p20 mb30">
                             <h3 class="page-title">
-                                Display Picture
+                                Logos
 
                             </h3>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                             <div class="row">
 
-                                {% for image in user.image %}
-                                    {% if image.type == 'vitrine' %}
-                                        <div class="col-sm-6 col-md-3">
-                                            <div class="card-simple" data-background-image="uploads/profile_picture/{{ image.image }}" >
-                                                <div class="card-simple-background">
-                                                    <div class="card-simple-content">
+                                {% set logos = [] %}
+                                {% for image in user.image  %}
 
+                                    {% if image.type == 'logo' %}
+                                        {% set logos = logos|merge([image.image]) %}
 
-
-                                                    </div><!-- /.card-simple-content -->
-
-
-
-                                                </div><!-- /.card-simple-background -->
-                                            </div><!-- /.card-simple -->
-                                        </div><!-- /.col-* -->
 
                                     {% endif %}
                                 {% endfor %}
+                                <div class="col-sm-4">
+                                    <img src="/uploads/profile_picture/{{ logos|last }}" alt="">
+
+                                    <div class="btn-group">
+                                        {#<a href="{{ path('update_internship', {slug:internship.slug}) }}"><button class="btn btn-secondary">update</button></a>
+                                        <a href="{{ path('delete_stage', {slug:internship.slug}) }}"><button class="btn btn-primary">remove</button></a>#}
+
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -191,7 +171,7 @@
                                 {% endif %}
                             {% endfor %}
                             <div class="col-sm-4">
-                                <img src="uploads/profile_picture/{{ profiles|last }}" alt="">
+                                <img src="/uploads/profile_picture/{{ profiles|last }}" alt="">
 
                                 <div class="btn-group">
                                     {#<a href="{{ path('update_internship', {slug:internship.slug}) }}"><button class="btn btn-secondary">update</button></a>

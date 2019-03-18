@@ -19,7 +19,7 @@ class Mailer{
 
     public function SendMail($email,$token,$type){
         $message = (new \Swift_Message('Wellness Center'))
-            ->setFrom('noreply@wellness')
+            ->setFrom('noreply@wellness.com')
             ->setTo($email)
             ->setBody(
                 $this->templating->render('email/registration.html.twig',[
@@ -39,6 +39,18 @@ class Mailer{
         $this->mailer->send($message);
 
 
+    }
+    public function SendBannedEmail($email){
+        $message = (new \Swift_Message('Wellness Center'))
+            ->setFrom('noreply@wellness.com')
+            ->setTo($email)
+            ->setBody(
+                $this->templating->render('email/banned.html.twig',[
+                    'email'=>$email
+                ]),
+                'text/html'
+            );
+        $this->mailer->send($message);
     }
 
 

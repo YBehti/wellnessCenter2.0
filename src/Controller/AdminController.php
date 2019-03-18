@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Provider;
 use App\Entity\Service;
 use App\Form\ProviderFormType;
 use App\Form\ServiceType;
+use App\Services\Mailer;
+use App\Services\UploaderHelper;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -83,7 +86,7 @@ class AdminController extends AbstractController
      * @Route ("/update_service/{slug}", name="update_service")
      */
 
-    public function update_service(Request $request,$slug){
+    public function update_service(Request $request,$slug,UploaderHelper $uploaderHelper){
 
         $repository = $this->getDoctrine()->getRepository(Service::class);
         $service = $repository->findOneBy(['slug'=>$slug]);
@@ -93,9 +96,28 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager = $this->getDoctrine()->getManager();
 
+            $uploadedVitrine = $form['vitrine_picture']->getData();
+
+            if ($uploadedVitrine)
+            {
+
+                $newFileName = $uploaderHelper->uploadImage($uploadedVitrine);
+
+
+                $image = new Image();
+                $image
+                    ->setImage($newFileName)
+                    ->setType('vitrine')
+                    ->setOrdre(1);
+                $manager->persist($image);
+                $service->setVitrine($image);
+            }
+
+
+
             $manager->flush();
 
-            return $this->redirectToRoute("service-detail");
+            return $this->redirectToRoute("service");
         }
 
         return $this->render("service/service_form.html.twig",[
@@ -129,15 +151,33 @@ class AdminController extends AbstractController
     /**
      * @Route("/add_service", name="admin_add_service")
      */
-    public function add(Request $request){
+    public function add(Request $request,UploaderHelper $uploaderHelper){
         $service = new Service();
 
 
 
         $form = $this->createForm(ServiceType::class, $service);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $manager = $this->getDoctrine()->getManager();
+
+            $uploadedVitrine = $form['vitrine_picture']->getData();
+
+            if ($uploadedVitrine)
+            {
+
+                $newFileName = $uploaderHelper->uploadImage($uploadedVitrine);
+
+
+                $image = new Image();
+                $image
+                    ->setImage($newFileName)
+                    ->setType('vitrine')
+                    ->setOrdre(1);
+                $manager->persist($image);
+                $service->setVitrine($image);
+            }
             $manager->persist($service);
             $manager->flush();
             return $this->redirectToRoute('service');
@@ -148,5 +188,29 @@ class AdminController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    /**
+     * @Route("/ban/{slug}", name="banned")
+     */
+    public function setBanned($slug,Mailer $mailer){
+        $repository = $this->getDoctrine()->getRepository(Provider::class);
+        $provider = $repository->findOneBy(['slug'=>$slug]);
+
+        $provider->setRoles(['ROLE_BANNED']);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->flush();
+
+
+        $email = $provider->getEmail();
+
+
+        $mailer->SendBannedEmail($email);
+
+        return $this->redirectToRoute("provider");
+
+
+    }
+
+
+
 
 }

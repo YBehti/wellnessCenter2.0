@@ -43,3 +43,4 @@ security:
         - { path: ^/admin, roles: [ROLE_ADMIN] }
         - { path: ^/user_surfer, roles: [ROLE_USER] }
         - { path: ^/user_provider, roles: [ROLE_VENDOR] }
+        - {path : ^/user_banned, roles: [ROLE_BANNED]}

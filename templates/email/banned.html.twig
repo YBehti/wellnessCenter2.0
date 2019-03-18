@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body style="padding: 0;margin: 0;font-family: Arial; font-size:12px;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#ffffff">
+    <tr>
+        <td width="600" align="center">
+            <!-- HEADER -->
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td colspan="4" width="600">
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#f06261" colspan="4" height="20"></td>
+                </tr>
+                <tr>
+                    <td bgcolor="#f06261" width="30"></td>
+                    <td bgcolor="#f06261">
+                        <img src="{{ absolute_url(asset('assets/img/logo-white.png')) }}"><span style="color:#fff;padding-left: 1em;font-family: Verdana, Sans-Serif;"><b>Wellness</b></span>
+                    </td>
+                    <td bgcolor="#f06261">
+                        <p style="color: white;font-family: arial;font-weight: lighter;text-align:right;font-size: 16px;">Your account have been banned for violation of our conditions agrement </p>
+                    </td>
+                    <td bgcolor="#f06261" width="30"></td>
+                </tr>
+                <tr>
+                    <td bgcolor="#f06261" colspan="4" height="20"></td>
+                </tr>
+            </table>
+            <!-- CONTENT -->
+            <table cellpadding="0" cellspacing="0" border="0" width="600">
+                <tr>
+                    <td width="20" style="background-color:#f9f9f9;"></td>
+                    <td width="560" style="background-color:#f9f9f9; color:#444; font-family: arial; text-align:left; font-size: 13px">
+                        <br/>
+                        <h2>Follow the link below to know what you did wrong : </h2>
+
+                        <p>► <strong>Email : </strong> {{ email }}</p>
+                        <p>► <strong>Message : </strong> Well well well , you got banned for an indeterminate period of time, please take contact with us by mail at the adress
+                            <a href="mailto:complaint@wellness.com"></a> for more information. </p>
+                        <p><i>Sent at : {{ "now"|date("Y/m/d - H:i:s") }} </i></p>
+                        <br/>
+                        <br/>
+                    </td>
+                    <td width="20" style="background-color:#f9f9f9;"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

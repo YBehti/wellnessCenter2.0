@@ -14,18 +14,17 @@
                             {% if is_granted ('ROLE_ADMIN') %}
                             <a class="btn btn-primary mt50" href="{{ path('admin') }}">Back</a>
                             <a class="btn btn-warning mt50" href="{{ path('provider_update', {slug:provider.slug}) }}">Edit</a>
-                            <a class="btn btn-danger mt50" href="#">Ban</a>
-                            {% endif %}
+                            <a  href="{{ path("banned",{slug:provider.slug}) }}" class="btn  btn-danger mt50">Ban</a>                            {% endif %}
                             <h1>Look at this looker</h1>
                             {% for image in provider.image %}
                                 {% if image.type == "logo" %}
-                                    <img src="uploads/profile_picture/{{ image.image }}">
-                                    <p>{{ image.image}}</p>
+                                    <img src="/uploads/profile_picture/{{ image.image }}">
+
                                 {% endif %}
 
                                 {% if image.type is same as("profile") %}
-                                    <img src="{{ asset('uploads/profile_picture/plus-beau-visage-2017-5c8e5805b4f60.jpeg') }}" alt="">
-                                    <p>{{ image.image }}</p>
+                                    <img src="/uploads/profile_picture/{{ image.image }}" alt="">
+
                                 {% endif %}
                             {% endfor %}
 

@@ -143,17 +143,17 @@ class RegistrationController extends AbstractController
             }
             if ($userType === 'provider')
             {
-                $uploadedVitrine = $form['vitrine_picture']->getData();
-                if ($uploadedVitrine)
+                $uploadedLogo = $form['logo_picture']->getData();
+                if ($uploadedLogo)
                 {
 
-                    $newFileName = $uploaderHelper->uploadImage($uploadedVitrine);
+                    $newFileName = $uploaderHelper->uploadImage($uploadedLogo);
 
 
                     $image = new Image();
                     $image
                         ->setImage($newFileName)
-                        ->setType('vitrine')
+                        ->setType('logo')
                         ->setOrdre(1);
                     $manager->persist($image);
                     $user->addImage($image);

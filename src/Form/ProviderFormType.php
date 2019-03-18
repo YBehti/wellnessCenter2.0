@@ -108,7 +108,9 @@ class ProviderFormType extends AbstractType
 
                 ]
             ])
-            ->add('vitrine_picture',FileType::class,[
+
+
+            ->add('logo_picture',FileType::class,[
 
                 'mapped'=>false,
                 'required'=>false,
