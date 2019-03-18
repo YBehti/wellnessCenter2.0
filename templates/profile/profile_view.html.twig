@@ -7,14 +7,7 @@
 
     <div class="main">
         <div class="main-inner">
-            <div class="container">
-                <div class="row">
 
-
-
-
-                </div><!-- /.sidebar -->
-            </div><!-- /.col-* -->
 
             <div class="col-sm-12 col-lg-12">
                 <div class="content">
@@ -129,16 +122,95 @@
                                 {% endfor %}
                             </div>
                         </div>
+                        <div class="background-white p20 mb30">
+                            <h3 class="page-title">
+                                Display Picture
+
+                            </h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="row">
+
+                                {% for image in user.image %}
+                                    {% if image.type == 'vitrine' %}
+                                        <div class="col-sm-6 col-md-3">
+                                            <div class="card-simple" data-background-image="uploads/profile_picture/{{ image.image }}" >
+                                                <div class="card-simple-background">
+                                                    <div class="card-simple-content">
+
+
+
+                                                    </div><!-- /.card-simple-content -->
+
+
+
+                                                </div><!-- /.card-simple-background -->
+                                            </div><!-- /.card-simple -->
+                                        </div><!-- /.col-* -->
+
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+
                     {% endif %}
+                    <div class="background-white p20 mb30">
+                        <h3 class="page-title">
+                            Profile Picture
+
+                        </h3>
+
+                        <div class="row">
+
+                            {% set profiles = [] %}
+                            {% for image in user.image  %}
+
+                                {% if image.type == 'profile' %}
+                                    {% set profiles = profiles|merge([image.image]) %}
+
+
+                                {% endif %}
+                            {% endfor %}
+                            <div class="col-sm-4">
+                                <img src="uploads/profile_picture/{{ profiles|last }}" alt="">
+
+                                <div class="btn-group">
+                                    {#<a href="{{ path('update_internship', {slug:internship.slug}) }}"><button class="btn btn-secondary">update</button></a>
+                                    <a href="{{ path('delete_stage', {slug:internship.slug}) }}"><button class="btn btn-primary">remove</button></a>#}
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
 
 
 
 
                 </div><!-- /.content -->
             </div><!-- /.col-* -->
-        </div><!-- /.row -->
-    </div><!-- /.container -->
-    </div><!-- /.main-inner -->
-    </div>
+        </div><!-- /.main-inner -->
+    </div><!-- /.main -->
+
+
 {% endblock %}
 

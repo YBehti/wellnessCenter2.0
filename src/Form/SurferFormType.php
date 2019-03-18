@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -77,6 +78,11 @@ class SurferFormType extends AbstractType
                 'label'=> 'Subscribe to the Newsletter',
                 'attr'=> array('class' => 'checkbox')
             ))
+            ->add('profile_picture',FileType::class,[
+
+                'mapped'=>false,
+                'required'=>false
+            ])
             ->add('submit', SubmitType::class, array(
                 'attr' => array('class'=>'btn btn-primary pull-right')
             ))

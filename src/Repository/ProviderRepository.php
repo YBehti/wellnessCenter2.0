@@ -22,13 +22,15 @@ class ProviderRepository extends ServiceEntityRepository
 
     public function findByCp($searchPostCode,$searchService,$searchProvider){
 
-        dump($searchPostCode);
-        $qb = $this->createQueryBuilder('p');
+
+        $qb = $this->createQueryBuilder('p')
+        ->orderBy('p.name','ASC');
 
            if($searchProvider !== ""){
 
                 $qb->andWhere('p.name = :providers')
-                   ->setParameter('providers',$searchProvider);
+
+                   ->setParameter('providers',"$searchProvider");
            }
 
             if($searchPostCode !== ""){
@@ -36,15 +38,35 @@ class ProviderRepository extends ServiceEntityRepository
                 $qb->leftJoin('p.post_code', 'post_code')
                     ->addSelect('post_code')
                     ->andWhere('post_code.post_code LIKE :post_code')
-                    ->setParameter('post_code',$searchPostCode);
+                    ->setParameter('post_code',"%$searchPostCode%");
+
+              /*  $qb->innerJoin(
+                    'p.post_code',
+                    'post',
+                    'WITH',
+                    'post.id LIKE :post'
+                )
+
+                    ->setParameter('post',"%$searchPostCode%");*/
+
+
             }
 
-            if($searchService){
+            if($searchService !== ""){
 
-                $qb->leftJoin('p.services','services')
+                 $qb->leftJoin('p.services','services')
                     ->addSelect('services')
                     ->andWhere('services.name LIKE :services')
-                    ->setParameter('services',$searchService);
+                    ->setParameter('services',"%$searchService%");
+
+                /*$qb->innerJoin(
+                    'p.services',
+                    'services',
+                    'WITH',
+                    'services.id LIKE :services'
+                )
+
+                    ->setParameter('services',"%$searchService%");*/
             }
 
 

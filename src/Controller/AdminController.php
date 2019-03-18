@@ -49,6 +49,7 @@ class AdminController extends AbstractController
     public function update_provider($slug, Request $request){
 
        $provider = $this->get_provider($slug);
+       $user_type = 'provider';
        $form = $this->createForm(ProviderFormType::class,$provider);
        $form->remove('password');
        $form->remove('confirm_password');
@@ -68,7 +69,8 @@ class AdminController extends AbstractController
 
        return $this->render('profile/profile_form.html.twig',[
 
-           'form'=>$form->createView()
+           'form'=>$form->createView(),
+           'user_type'=>$user_type
 
        ]);
     }

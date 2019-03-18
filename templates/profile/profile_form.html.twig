@@ -12,9 +12,57 @@
                     <div class="col-sm-12 col-lg-9">
                         <div class="content">
                             {{ form_start(form) }}
+
+                            {% set title = 'Edit Profile' %}
+                            {% if app.user == null %}
+                                {% set title = 'Register' %}
+                            {% endif %}
                             <div class="page-title">
-                                <h1>Edit Profile</h1>
+                                <h1>{{ title }}</h1>
                             </div><!-- /.page-title -->
+
+                            <div class="background-white p20 mb30">
+                                <h3 class="page-title">
+                                    Profile Image
+
+                                </h3>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.profile_picture) }}
+                                        {{ form_errors(form.profile_picture) }}
+                                        {{ form_widget(form.profile_picture) }}
+                                        {{ form_help(form.profile_picture) }}
+                                    </div><!-- /.form-group -->
+                                </div>
+                            </div>
+
+                            {% if app.user == null %}
+
+                            <div class="background-white p20 mb30">
+                                <h3 class="page-title">
+                                    Password
+
+                                </h3>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.password) }}
+                                        {{ form_errors(form.password) }}
+                                        {{ form_widget(form.password) }}
+                                        {{ form_help(form.password) }}
+                                    </div><!-- /.form-group -->
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.confirm_password) }}
+                                        {{ form_errors(form.confirm_password) }}
+                                        {{ form_widget(form.confirm_password) }}
+                                        {{ form_help(form.confirm_password) }}
+                                    </div><!-- /.form-group -->
+                                </div>
+                            </div>
+
+                            {% endif %}
+
 
                             <div class="background-white p20 mb30">
                                 <h3 class="page-title">
@@ -24,7 +72,7 @@
 
                                 <div class="row">
 
-                                    {% if is_granted ('ROLE_USER') %}
+                                    {% if user_type == 'surfer' %}
                                         <div class="form-group col-sm-4">
                                             {{ form_label(form.firstname) }}
                                             {{ form_errors(form.firstname) }}
@@ -78,7 +126,7 @@
                                         {{ form_widget(form.post_code) }}
                                         {{ form_help(form.post_code) }}
                                     </div><!-- /.form-group -->
-                                    {% if is_granted ('ROLE_VENDOR') or is_granted ('ROLE_ADMIN')%}
+                                    {% if user_type == 'provider' or is_granted ('ROLE_ADMIN')%}
                                     <div class="form-group col-sm-4">
                                         {{ form_label(form.email_pro) }}
                                         {{ form_errors(form.email_pro) }}
@@ -116,23 +164,69 @@
                                     </div><!-- /.form-group -->
 
 
+
+
+
+
                                     {% endif %}
 
 
 
-                                    <div class="row">
-                                        <div class="form-group col-sm-8 mt50">
-                                            {{ form_row(form.submit, { 'attr': {'class': 'btn btn-primary pull-right'} }) }}
-                                        </div><!-- /.form-group -->
-                                    </div>
+
+
+
 
 
                                 </div><!-- /.row -->
                             </div>
+                            {% if user_type == 'provider' %}
+                            <div class="background-white p20 mb30">
+                                <h3 class="page-title">
+                                    Display Image
 
+                                </h3>
 
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.vitrine_picture) }}
+                                        {{ form_errors(form.vitrine_picture) }}
+                                        {{ form_widget(form.vitrine_picture) }}
+                                        {{ form_help(form.vitrine_picture) }}
+                                    </div><!-- /.form-group -->
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if user_type == 'surfer' %}
+                            <div class="background-white p20 mb30">
+                                <h3 class="page-title">
+                                    Subscribe
+
+                                </h3>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        {{ form_label(form.newsletter) }}
+                                        {{ form_errors(form.newsletter) }}
+                                        {{ form_widget(form.newsletter) }}
+                                        {{ form_help(form.newsletter) }}
+                                    </div><!-- /.form-group -->
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            <div class="background-white p20 mb30">
+                                <div class="row">
+                                    <div class="form-group col-sm-8 mt50">
+                                        {{ form_row(form.submit, { 'attr': {'class': 'btn btn-primary pull-right'} }) }}
+                                    </div><!-- /.form-group -->
+                                </div>
+                            </div>
 
                             {{ form_end(form) }}
+
+
+
+
 
                         </div><!-- /.content -->
                     </div><!-- /.col-* -->

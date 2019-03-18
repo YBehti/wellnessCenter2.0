@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 
+use App\Entity\Image;
 use App\Entity\Provider;
 use App\Entity\Surfer;
 use App\Entity\TempUser;
@@ -11,6 +12,7 @@ use App\Entity\TempUser;
 
 use App\Form\ProviderFormType;
 use App\Form\SurferFormType;
+use App\Services\UploaderHelper;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,13 +87,14 @@ class RegistrationController extends AbstractController
      *
      */
 
-    function complete_registration($token,$type, Request $request){
+    function complete_registration($token,$type, Request $request,UploaderHelper $uploaderHelper){
 
 
 
         switch ($type){
 
             case 'surfer':
+                $userType = 'surfer';
                 $surfer = new Surfer();
                 $surfer
                     ->setBanned(false)
@@ -102,6 +105,7 @@ class RegistrationController extends AbstractController
                 $form = $this->createForm(SurferFormType::class,$user);
                 break;
             case 'provider':
+                $userType = 'provider';
                 $provider = new Provider();
                 $provider
                     ->setBanned(false)
@@ -118,6 +122,44 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $manager = $this->getDoctrine()->getManager();
+
+            $uploadedProfile = $form['profile_picture']->getData();
+
+
+
+            if ($uploadedProfile)
+            {
+
+                $newFileName = $uploaderHelper->uploadImage($uploadedProfile);
+
+
+                $image = new Image();
+                $image
+                    ->setImage($newFileName)
+                    ->setType('profile')
+                    ->setOrdre(1);
+                $manager->persist($image);
+                $user->addImage($image);
+            }
+            if ($userType === 'provider')
+            {
+                $uploadedVitrine = $form['vitrine_picture']->getData();
+                if ($uploadedVitrine)
+                {
+
+                    $newFileName = $uploaderHelper->uploadImage($uploadedVitrine);
+
+
+                    $image = new Image();
+                    $image
+                        ->setImage($newFileName)
+                        ->setType('vitrine')
+                        ->setOrdre(1);
+                    $manager->persist($image);
+                    $user->addImage($image);
+                }
+            }
+
             $password = $form->get('password')->getData();
             $user->setPassword($this->passwordEncoder->encodePassword(
                 $user,
@@ -125,22 +167,24 @@ class RegistrationController extends AbstractController
 
             ));
             $manager->persist($user);
-            $manager->flush();
+
+
             $tempUser = $this->getDoctrine()->getRepository(TempUser::class)
            ->findOneBy([
                'token'=>$token
            ]);
-            $cleaner = $this->getDoctrine()->getManager();
-            $cleaner->remove($tempUser);
+
+            $manager->remove($tempUser);
             $manager->flush();
 
 
 
             return $this->redirectToRoute('login');
         }
-        return $this->render('profile/registration_form.html.twig',[
+        return $this->render('profile/profile_form.html.twig',[
 
-            'form'=>$form->createView()
+            'form'=>$form->createView(),
+            'user_type'=>$userType
 
         ]);
 

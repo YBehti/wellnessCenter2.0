@@ -39,7 +39,7 @@ class Surfer extends User
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="surfer")
      */
-    private $images;
+    private $image;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="surfer")
@@ -52,7 +52,7 @@ class Surfer extends User
 
     public function __construct()
     {
-        $this->images = new ArrayCollection();
+        $this->image = new ArrayCollection();
         $this->comment = new ArrayCollection();
 
     }
@@ -101,15 +101,15 @@ class Surfer extends User
     /**
      * @return Collection|Image[]
      */
-    public function getImages(): Collection
+    public function getimage(): Collection
     {
-        return $this->images;
+        return $this->image;
     }
 
     public function addImage(Image $image): self
     {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
+        if (!$this->image->contains($image)) {
+            $this->image[] = $image;
             $image->setSurfer($this);
         }
 
@@ -118,8 +118,8 @@ class Surfer extends User
 
     public function removeImage(Image $image): self
     {
-        if ($this->images->contains($image)) {
-            $this->images->removeElement($image);
+        if ($this->image->contains($image)) {
+            $this->image->removeElement($image);
             // set the owning side to null (unless already changed)
             if ($image->getSurfer() === $this) {
                 $image->setSurfer(null);

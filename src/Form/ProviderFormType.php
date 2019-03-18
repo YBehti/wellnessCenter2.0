@@ -10,6 +10,7 @@ use App\Entity\Service;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -18,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class ProviderFormType extends AbstractType
 {
@@ -95,6 +97,25 @@ class ProviderFormType extends AbstractType
                 'placeholder' => 'select the service(s)',
                 'attr' => array('class' =>'form-control')
             ))
+            ->add('profile_picture',FileType::class,[
+
+                'mapped'=>false,
+                'required'=>false,
+                'constraints'=>[
+                    new Image([
+                        'maxSize' => '5M'
+                    ]),
+
+                ]
+            ])
+            ->add('vitrine_picture',FileType::class,[
+
+                'mapped'=>false,
+                'required'=>false,
+                'constraints'=>[
+                    new Image()
+                ]
+            ])
             ->add('submit', SubmitType::class, array(
                 'attr' => array('class'=>'btn btn-primary pull-right')
             ))
