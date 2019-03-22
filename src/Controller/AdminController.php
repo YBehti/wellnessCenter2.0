@@ -195,7 +195,7 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Provider::class);
         $provider = $repository->findOneBy(['slug'=>$slug]);
 
-        $provider->setRoles(['ROLE_BANNED']);
+        $provider->setBanned(true);
         $manager = $this->getDoctrine()->getManager();
         $manager->flush();
 
@@ -203,7 +203,7 @@ class AdminController extends AbstractController
         $email = $provider->getEmail();
 
 
-        $mailer->SendBannedEmail($email);
+        $mailer->SendMail($email,'banned',['email'=>$email]);
 
         return $this->redirectToRoute("provider");
 

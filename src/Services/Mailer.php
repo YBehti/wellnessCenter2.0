@@ -17,18 +17,17 @@ class Mailer{
 
     }
 
-    public function SendMail($email,$token,$type){
+    public function SendMail($email,$template,$datas){
         $message = (new \Swift_Message('Wellness Center'))
-            ->setFrom('noreply@wellness.com')
+            ->setFrom('behti90@gmail.com')
             ->setTo($email)
             ->setBody(
-                $this->templating->render('email/registration.html.twig',[
+                $this->templating->render("email/$template.html.twig",
 
-                    'email' => $email,
-                    'token'=>$token,
-                    'type'=>$type
+                    $datas
 
-                ]
+
+
 
                 ),
                 'text/html'
@@ -40,18 +39,7 @@ class Mailer{
 
 
     }
-    public function SendBannedEmail($email){
-        $message = (new \Swift_Message('Wellness Center'))
-            ->setFrom('noreply@wellness.com')
-            ->setTo($email)
-            ->setBody(
-                $this->templating->render('email/banned.html.twig',[
-                    'email'=>$email
-                ]),
-                'text/html'
-            );
-        $this->mailer->send($message);
-    }
+
 
 
 }

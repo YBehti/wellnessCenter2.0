@@ -70,11 +70,17 @@ class RegistrationController extends AbstractController
 
         $manager->flush();
 
+        $datas = [
+            'email' => $getEmail,
+            'token'=>$token,
+            'type'=>$getType
+        ];
 
 
 
 
-        $mailer->SendMail($getEmail,$token,$getType);
+
+        $mailer->SendMail($getEmail,'registration',$datas);
 
         return $this->render('profile/redirect.html.twig',[
             'email'=>$getEmail
