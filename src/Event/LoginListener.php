@@ -55,11 +55,11 @@ class LoginListener implements EventSubscriberInterface
                 }
                 if($connexionAttempt === $attemptLimit){
                     $this->sendMails->SendMail($lastUser,'attemptLimit',['email'=>$lastUser]);
-                    $message = "Vous avez dépassez le nombre maximum d'essaie";
+                    $message = "You have reached the limited connexion attempt";
 
                 }
                 else {
-                    $message = "Il vous reste: ".($attemptLimit - $connexionAttempt);
+                    $message = "remain: ".($attemptLimit - $connexionAttempt)."shots to connect";
                 }
                 throw new CustomUserMessageAuthenticationException($message);
             }else{

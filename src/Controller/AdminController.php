@@ -194,13 +194,21 @@ class AdminController extends AbstractController
     public function setBanned($slug,Mailer $mailer){
         $repository = $this->getDoctrine()->getRepository(Provider::class);
         $provider = $repository->findOneBy(['slug'=>$slug]);
+        $email = $provider->getEmail();
 
-        $provider->setBanned(true);
+        if ($provider->getBanned() !== true){
+
+            $provider->setBanned(true);
+        }else{
+            $provider->setBanned(false);
+        }
+
+
         $manager = $this->getDoctrine()->getManager();
         $manager->flush();
 
 
-        $email = $provider->getEmail();
+
 
 
         $mailer->SendMail($email,'banned',['email'=>$email]);

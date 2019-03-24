@@ -12,10 +12,15 @@
                     <div class="row detail-content">
                         <div class="col-sm-7">
                             {% if is_granted ('ROLE_ADMIN') %}
-                            <a class="btn btn-primary mt50" href="{{ path('admin') }}">Back</a>
-                            <a class="btn btn-warning mt50" href="{{ path('provider_update', {slug:provider.slug}) }}">Edit</a>
-                            <a  href="{{ path("banned",{slug:provider.slug}) }}" class="btn  btn-danger mt50">Ban</a>                            {% endif %}
-                            <h1>Look at this looker</h1>
+                                <a class="btn btn-primary mt50" href="{{ path('admin') }}">Back</a>
+                                <a class="btn btn-warning mt50" href="{{ path('provider_update', {slug:provider.slug}) }}">Edit</a>
+                                {% if provider.banned == false %}
+                                    <a href="{{ path("banned",{slug:provider.slug}) }}" class="btn btn-danger mt50">Ban</a>
+                                {% else %}
+                                    <a href="{{ path("banned",{slug:provider.slug}) }}" class="btn btn-success mt50">Remove Ban</a>
+                                {% endif %}
+                            {% endif %}
+                                <h1>Look at this looker</h1>
                             {% for image in provider.image %}
                                 {% if image.type == "logo" %}
                                     <img src="/uploads/profile_picture/{{ image.image }}">
