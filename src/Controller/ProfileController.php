@@ -98,7 +98,7 @@ class ProfileController extends AbstractController
             $manager->flush();
 
 
-            $this->redirectToRoute('profile');
+            return $this->redirectToRoute('profile');
 
         }
 

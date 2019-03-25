@@ -37,7 +37,7 @@ class Image
     private $provider;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Surfer", inversedBy="images")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Surfer", inversedBy="image")
      */
     private $surfer;
 
